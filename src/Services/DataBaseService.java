@@ -7,12 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class dataBaseService {
+public class DataBaseService {
 	private String dbName;
 	private FileWriter dbWriter;
 	private BufferedReader dbReader;
 
-	public dataBaseService(String dbName) throws IOException {
+	public DataBaseService(String dbName) throws IOException {
 		File dbFile = new File(dbName);
 		this.dbWriter = new FileWriter(dbFile);
 		this.dbReader = new BufferedReader(new FileReader(dbFile));

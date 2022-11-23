@@ -16,8 +16,14 @@ public abstract class Repository<T> {
     public abstract List<T> getAll();
 
     public abstract T get(int id);
+    
+    public abstract T get(String id);
 
     public void save(T objT) {
+        
+    };
+    
+    public void modify(String id, T objT) {
         
     };
 
