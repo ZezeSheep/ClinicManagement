@@ -32,19 +32,20 @@ public class ClientScreen extends CRUDScreen {
 		switch(choice) {
 			case 1:
 				createClient();
-				getViewController().getClientScreen(); break;
+				getViewController().getClientScreen().execute(); break;
 			case 2:
 				editClient();
-				getViewController().getClientScreen(); break;
+				getViewController().getClientScreen().execute(); break;
 			case 3:
 				removeClient();
-				getViewController().getClientScreen(); break;
+				getViewController().getClientScreen().execute(); break;
 			case 4: break;
 			default: break;
 		}		
 	}
 	
 	private void removeClient() {
+		System.out.println("Digite o id do cliente a ser removido: ");
 		Scanner scanner = new Scanner(System.in);
 		int id = scanner.nextInt();
 		clientRepository.remove(id);
