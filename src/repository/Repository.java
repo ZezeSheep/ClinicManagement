@@ -14,11 +14,7 @@ public abstract class Repository<T> {
     }
 
     public abstract List<T> getAll();
-
-    public abstract T get(int id);
     
-    // Retorna null quando não encontrar correspondências
-    public abstract T get(String id);
 
     public abstract void save(T objT);
     

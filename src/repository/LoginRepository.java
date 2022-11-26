@@ -1,14 +1,18 @@
 package repository;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import model.Client;
-import model.Dentist;
-import model.Secretary;
 import model.User;
 
-public class LoginRepository extends Repository<User>{
+public class LoginRepository extends UserRepository<User>{
 
 	public LoginRepository(String fileName) {
 		super(fileName);
@@ -16,28 +20,63 @@ public class LoginRepository extends Repository<User>{
 	
 	@Override
     public List<User> getAll() {
-		List<User> list = new ArrayList<User>();
-		list.add(new User("Raphael", "admin@cefet.com", "shuashuashua", "12345678912"));
-		list.add(new User("Jose", "jose@cefet.com", "shuashuashua", "12345678910"));
-		return list;
+        // TODO Auto-generated method stub
+		ArrayList<User> userList = new ArrayList<User>();
+		try {
+			File f = new File(this.getFileName());
+			if(f.exists()) {
+				FileInputStream fis = new FileInputStream(f);	
+				ObjectInputStream ois = new ObjectInputStream(fis);
+	
+				userList = (ArrayList<User>) ois.readObject();
+
+				ois.close();
+				fis.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+		} 
+		return userList;
     }
 
     @Override
     public User get(String email) {
-        //return new Client("Raphael", "admin@cefet.com", "7ae0b52ec36ba1971fbe113cd8ad64a2", "12345678912");
-        //return new Dentist("Raphael", "admin@cefet.com", "7ae0b52ec36ba1971fbe113cd8ad64a2", "12345678912");
-        return new Secretary("Raphael", "admin@cefet.com", "7ae0b52ec36ba1971fbe113cd8ad64a2", "12345678912");
+        List<User> userList = this.getAll();
+
+		Iterator<User> it = userList.iterator();
+
+		while(it.hasNext()) {
+			User u = it.next();
+			if(u.getEmail().equals(email)) {
+				return u;
+			}
+		}
+		
+        return null;
     }
 
-	@Override
-	public User get(int id) {
-		// TODO Auto-generated method stub
-		return this.get("" + id);
-	}
 
 	@Override
 	public void save(User objT) {
-		// TODO Auto-generated method stub
+		List<User> userList = this.getAll();
+
+		userList.add(objT);
+
+		try {
+			FileOutputStream fos = new FileOutputStream(this.getFileName());
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+			oos.writeObject(userList);
+
+			System.out.println("User: "+ objT.email+ " save in Database");
+
+			oos.close();
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
