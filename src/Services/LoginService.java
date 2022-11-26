@@ -18,7 +18,7 @@ public class LoginService {
 		try {
 			_loginRepository.save(user);
 		} catch (Exception e) {
-			System.err.print("Falha ao registrar o usuário " + user.Email + " no banco de dados");
+			System.err.print("Falha ao registrar o usuï¿½rio " + user.Email + " no banco de dados");
 		}
 	}
 	
@@ -29,7 +29,7 @@ public class LoginService {
 			user.setPasswordHash(hashPassword);
 			_loginRepository.save(user);
 		} catch (Exception e) {
-			System.err.print("Falha ao modificar a senha do usuário " + email);
+			System.err.print("Falha ao modificar a senha do usuï¿½rio " + email);
 		}
 	}
 	
