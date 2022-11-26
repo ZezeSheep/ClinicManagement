@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-import controller.ViewController;
+import controller.interfaces.IViewController;
 import model.enums.UserCategory;
 
 public class User implements Serializable {
@@ -25,7 +25,7 @@ public class User implements Serializable {
 		this.cpf = cpf;
 	}
 	
-	public void showMenu(ViewController viewController) {}
+	public void showMenu(IViewController viewController) {}
 
 	public String getName() {
 		return name;

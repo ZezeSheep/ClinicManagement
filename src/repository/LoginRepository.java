@@ -16,7 +16,6 @@ public class LoginRepository extends UserRepository<User>{
 
 	public LoginRepository(String fileName) {
 		super(fileName);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

@@ -3,7 +3,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class SecurityService {
+import Services.interfaces.ISecurityService;
+
+public class SecurityService implements ISecurityService {
 	
 	public static String getMD5Hash(String input)
     {

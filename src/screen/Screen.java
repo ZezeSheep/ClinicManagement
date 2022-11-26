@@ -3,13 +3,15 @@ package screen;
 import java.util.Scanner;
 
 import controller.ViewController;
+import controller.interfaces.IViewController;
+import screen.interfaces.IScreen;
 
-public abstract class Screen {
+public abstract class Screen implements IScreen {
 	
-	protected ViewController viewController;
+	protected IViewController viewController;
 	protected Scanner scanner;
 	
-	public Screen(ViewController viewController, Scanner scanner) {
+	public Screen(IViewController viewController, Scanner scanner) {
 		this.viewController = viewController;
 		this.scanner = scanner;
 	}
@@ -19,20 +21,12 @@ public abstract class Screen {
 	public void execute() {
 		show();
 	};
-	
-	protected void changeScreen(Screen screen) {
-		System.out.print("Mudando para a tela " + screen.toString());
-		screen.show();
-	}
 
-	public ViewController getViewController() {
+	public IViewController getViewController() {
 		return viewController;
 	}
 
 	public void setViewController(ViewController viewController) {
 		this.viewController = viewController;
 	}
-	
-	
-
 }
