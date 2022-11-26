@@ -22,5 +22,17 @@ public class SurgicalProcedureRepository extends Repository<SurgicalProcedure>{
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public SurgicalProcedure get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(SurgicalProcedure objT) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

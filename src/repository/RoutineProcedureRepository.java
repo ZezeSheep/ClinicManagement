@@ -23,4 +23,16 @@ public class RoutineProcedureRepository extends Repository<RoutineProcedure>{
         return null;
     }
 
+	@Override
+	public RoutineProcedure get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(RoutineProcedure objT) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

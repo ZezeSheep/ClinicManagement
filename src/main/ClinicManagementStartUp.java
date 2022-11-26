@@ -1,10 +1,13 @@
 package main;
 
+import controller.ViewController;
+import controller.interfaces.IViewController;
+
 public class ClinicManagementStartUp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		IViewController viewController = new ViewController();
+		viewController.start();
 	}
 
 }

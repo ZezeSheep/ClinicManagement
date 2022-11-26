@@ -1,31 +1,32 @@
 package screen;
 
-import controller.ViewController;
+import java.util.Scanner;
 
-public abstract class Screen {
+import controller.ViewController;
+import controller.interfaces.IViewController;
+import screen.interfaces.IScreen;
+
+public abstract class Screen implements IScreen {
 	
-	private ViewController viewController;
+	protected IViewController viewController;
+	protected Scanner scanner;
 	
-	public Screen(ViewController viewController) {
+	public Screen(IViewController viewController, Scanner scanner) {
 		this.viewController = viewController;
+		this.scanner = scanner;
 	}
 	
-	protected abstract void show();
-	protected abstract void changeScreen();
+	public abstract void show();
 	
 	public void execute() {
 		show();
-		changeScreen();
-	}
+	};
 
-	public ViewController getViewController() {
+	public IViewController getViewController() {
 		return viewController;
 	}
 
 	public void setViewController(ViewController viewController) {
 		this.viewController = viewController;
 	}
-	
-	
-
 }
