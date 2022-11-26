@@ -22,5 +22,17 @@ public class ClientRepository extends Repository<Client> {
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public Client get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(Client objT) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

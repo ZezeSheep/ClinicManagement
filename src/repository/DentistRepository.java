@@ -22,5 +22,17 @@ public class DentistRepository extends Repository<Dentist> {
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public Dentist get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(Dentist objT) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

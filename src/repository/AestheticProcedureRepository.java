@@ -22,5 +22,17 @@ public class AestheticProcedureRepository extends Repository<AestheticProcedure>
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public AestheticProcedure get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(AestheticProcedure objT) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

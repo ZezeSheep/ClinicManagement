@@ -19,9 +19,7 @@ public abstract class Repository<T> {
     
     public abstract T get(String id);
 
-    public void save(T objT) {
-        
-    };
+    public abstract void save(T objT);
     
     public void modify(String id, T objT) {
         

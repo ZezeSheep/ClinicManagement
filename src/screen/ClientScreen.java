@@ -14,7 +14,7 @@ public class ClientScreen extends CRUDScreen {
 		super(viewController);
 		clientRepository = new ClientRepository("");
 	}
-
+/*
 	@Override
 	protected void showRecordedEntities() {
 		List<Client> recordedClients = clientRepository.getAll();
@@ -26,19 +26,19 @@ public class ClientScreen extends CRUDScreen {
 	}
 
 	@Override
-	protected void changeScreen() {
+	protected void ChangeScreen() {
 		Scanner scanner = new Scanner(System.in);
 		int choice = scanner.nextInt();
 		switch(choice) {
 			case 1:
 				createClient();
-				getViewController().getClientScreen().execute(); break;
+				viewController.GetClientScreen().Execute(); break;
 			case 2:
 				editClient();
-				getViewController().getClientScreen().execute(); break;
+				viewController.GetClientScreen().Execute(); break;
 			case 3:
 				removeClient();
-				getViewController().getClientScreen().execute(); break;
+				viewController.GetClientScreen().Execute(); break;
 			case 4: break;
 			default: break;
 		}		
@@ -91,5 +91,11 @@ public class ClientScreen extends CRUDScreen {
 		clientRepository.save(currentClient);
 	}
 	
+*/
 
+	@Override
+	protected void showRecordedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }

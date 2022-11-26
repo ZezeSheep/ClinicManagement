@@ -31,7 +31,7 @@ public class DataBaseService {
 		dbWriter.flush();
 	}
 
-	public ArrayList<String> ReadLines() throws IOException {
+	public ArrayList<String> readLines() throws IOException {
 		String lineRead;
 		ArrayList<String> linesRead = new ArrayList<String>();
 		while ((lineRead = dbReader.readLine()) != null) {

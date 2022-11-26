@@ -15,7 +15,7 @@ public class DentistScreen extends CRUDScreen {
 		super(viewController);
 		dentistRepository = new DentistRepository("");
 	}
-	
+/*	
 	@Override
 	protected void showRecordedEntities() {
 		List<Dentist> recordedDentists = dentistRepository.getAll();
@@ -83,5 +83,11 @@ public class DentistScreen extends CRUDScreen {
 		
 		dentistRepository.save(currentDentist);
 	}
+*/
 
+	@Override
+	protected void showRecordedEntities() {
+		// TODO Auto-generated method stub
+		
+	}
 }

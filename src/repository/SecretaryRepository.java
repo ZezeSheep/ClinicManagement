@@ -23,5 +23,17 @@ public class SecretaryRepository extends Repository<Secretary> {
         return null;
     }
 
+	@Override
+	public Secretary get(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void save(Secretary objT) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
 }

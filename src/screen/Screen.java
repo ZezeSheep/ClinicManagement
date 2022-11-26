@@ -4,18 +4,21 @@ import controller.ViewController;
 
 public abstract class Screen {
 	
-	private ViewController viewController;
+	protected ViewController viewController;
 	
 	public Screen(ViewController viewController) {
 		this.viewController = viewController;
 	}
 	
 	protected abstract void show();
-	protected abstract void changeScreen();
 	
-	public void execute() {
+	protected void execute() {
 		show();
-		changeScreen();
+	};
+	
+	protected void changeScreen(Screen screen) {
+		System.out.print("Mudando para a tela " + screen.toString());
+		screen.show();
 	}
 
 	public ViewController getViewController() {
