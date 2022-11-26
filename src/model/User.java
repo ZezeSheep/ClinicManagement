@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 import controller.ViewController;
 import model.enums.UserCategory;
 
-public class User {
+public class User implements Serializable {
 	public String name;
 	public String email;
 	public String passwordHash;
