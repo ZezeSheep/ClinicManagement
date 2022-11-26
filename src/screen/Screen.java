@@ -1,7 +1,31 @@
 package screen;
 
+import controller.ViewController;
+
 public abstract class Screen {
 	
-	// Exibe as opções da tela
-	public void ShowOptions() {}
+	private ViewController viewController;
+	
+	public Screen(ViewController viewController) {
+		this.viewController = viewController;
+	}
+	
+	protected abstract void show();
+	protected abstract void changeScreen();
+	
+	public void execute() {
+		show();
+		changeScreen();
+	}
+
+	public ViewController getViewController() {
+		return viewController;
+	}
+
+	public void setViewController(ViewController viewController) {
+		this.viewController = viewController;
+	}
+	
+	
+
 }
