@@ -1,8 +1,10 @@
 package repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Client;
+import model.User;
 
 public class ClientRepository extends Repository<Client> {
 
@@ -14,13 +16,16 @@ public class ClientRepository extends Repository<Client> {
     @Override
     public List<Client> getAll() {
         // TODO Auto-generated method stub
-        return null;
+    	List<Client> list = new ArrayList<Client>();
+		list.add(new Client("Raphael", "admin@cefet.com", "shuashuashua", "12345678912"));
+		list.add(new Client("Jose", "jose@cefet.com", "shuashuashua", "12345678910"));
+		return list;
     }
 
     @Override
     public Client get(int id) {
         // TODO Auto-generated method stub
-        return null;
+        return new Client("Raphael", "admin@cefet.com", "shuashuashua", "12345678912");
     }
 
 	@Override

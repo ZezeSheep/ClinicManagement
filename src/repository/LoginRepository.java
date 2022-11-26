@@ -2,6 +2,8 @@ package repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Client;
 import model.User;
 
 public class LoginRepository extends Repository<User>{
@@ -23,7 +25,7 @@ public class LoginRepository extends Repository<User>{
     @Override
     public User get(String email) {
         // TODO Auto-generated method stub
-        return new User("Raphael", "admin@cefet.com", "shuashuashua", "12345678912");
+        return new Client("Raphael", "admin@cefet.com", "7ae0b52ec36ba1971fbe113cd8ad64a2", "12345678912");
     }
 
 	@Override

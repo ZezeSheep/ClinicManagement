@@ -1,45 +1,67 @@
 package model;
 
+import controller.ViewController;
+import model.enums.UserCategory;
+
 public class User {
-	public String Name;
-	public String Email;
-	public String PasswordHash;
-	public String Cpf;
+	public String name;
+	public String email;
+	public String passwordHash;
+	public String cpf;
+	public UserCategory userCategory;
 	
-	public User(String email, String passwordHash) {
-		Email = email;
-		PasswordHash = passwordHash;
+	public User(String email, String passwordHash, UserCategory userCategory) {
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.userCategory = userCategory;
 	}
 	
 	public User(String name, String email, String passwordHash, String cpf) {
-		Name = name;
-		Email = email;
-		PasswordHash = passwordHash;
-		Cpf = cpf;
+		this.name = name;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.cpf = cpf;
 	}
 	
+	public void showMenu(ViewController viewController) {}
+
 	public String getName() {
-		return Name;
+		return name;
 	}
+
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
+
 	public String getEmail() {
-		return Email;
+		return email;
 	}
+
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
+
 	public String getPasswordHash() {
-		return PasswordHash;
+		return passwordHash;
 	}
+
 	public void setPasswordHash(String passwordHash) {
-		PasswordHash = passwordHash;
+		this.passwordHash = passwordHash;
 	}
+
 	public String getCpf() {
-		return Cpf;
+		return cpf;
 	}
+
 	public void setCpf(String cpf) {
-		Cpf = cpf;
+		this.cpf = cpf;
 	}
+
+	public UserCategory getUserCategory() {
+		return userCategory;
+	}
+
+	public void setUserCategory(UserCategory userCategory) {
+		this.userCategory = userCategory;
+	};
 }

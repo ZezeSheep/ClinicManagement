@@ -10,22 +10,27 @@ import repository.DentistRepository;
 public class DentistScreen extends CRUDScreen {
 	
 	private DentistRepository dentistRepository;
+	private Dentist dentist;
 
-	public DentistScreen(ViewController viewController) {
-		super(viewController);
+	public void setDentist(Dentist dentist) {
+		this.dentist = dentist;
+	}
+
+	public DentistScreen(ViewController viewController, Scanner scanner) {
+		super(viewController, scanner);
 		dentistRepository = new DentistRepository("");
 	}
-/*	
+
 	@Override
 	protected void showRecordedEntities() {
-		List<Dentist> recordedDentists = dentistRepository.getAll();
+		/*List<Dentist> recordedDentists = dentistRepository.getAll();
 		for(Dentist dentist : recordedDentists) {
 			String dentistLine = String.format("Name: %s\nCRM:%s\n", 
 					dentist.getName(),dentist.getCRM());
 			System.out.println(dentistLine + "\n");
-		}		
+		}*/		
 	}
-
+/*
 	@Override
 	protected void changeScreen() {
 		Scanner scanner = new Scanner(System.in);
@@ -83,11 +88,5 @@ public class DentistScreen extends CRUDScreen {
 		
 		dentistRepository.save(currentDentist);
 	}
-*/
-
-	@Override
-	protected void showRecordedEntities() {
-		// TODO Auto-generated method stub
-		
-	}
+	*/
 }

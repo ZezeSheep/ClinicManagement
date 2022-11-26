@@ -1,18 +1,22 @@
 package screen;
 
+import java.util.Scanner;
+
 import controller.ViewController;
 
 public abstract class Screen {
 	
 	protected ViewController viewController;
+	protected Scanner scanner;
 	
-	public Screen(ViewController viewController) {
+	public Screen(ViewController viewController, Scanner scanner) {
 		this.viewController = viewController;
+		this.scanner = scanner;
 	}
 	
-	protected abstract void show();
+	public abstract void show();
 	
-	protected void execute() {
+	public void execute() {
 		show();
 	};
 	

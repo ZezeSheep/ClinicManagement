@@ -3,6 +3,7 @@ package screen;
 import Services.LoginService;
 import controller.ViewController;
 import model.Constants;
+import model.User;
 import utils.UserInputUtils;
 
 import java.util.Scanner;
@@ -10,14 +11,12 @@ import java.util.regex.Pattern;
 
 public class LoginScreen extends Screen {
 	
-	private LoginService _loginService;
-	private Scanner _scanner;
-		 
+	private LoginService loginService;
 	
-	public LoginScreen(ViewController viewController) {
-		super(viewController);
-		_loginService = new LoginService();
-		_scanner = new Scanner(System.in);
+	public LoginScreen(ViewController viewController, Scanner scanner) {
+		super(viewController, scanner);
+		loginService = new LoginService();
+		this.scanner = scanner;
 		System.out.println("> Iniciando tela de login.");
 	}
 	
@@ -25,7 +24,7 @@ public class LoginScreen extends Screen {
 		boolean userSelectedAnyOption = false;
 		while(!userSelectedAnyOption) {
 			System.out.println("(1) Realizar login\n(2) Criar conta\n(3) Alterar senha\n(4) Sair");
-			String optionSelected = _scanner.next();
+			String optionSelected = scanner.next();
 			userSelectedAnyOption = true;
 			
 			switch(optionSelected) {
@@ -48,26 +47,28 @@ public class LoginScreen extends Screen {
 		}
 	}
 	
-	private void login() {
+	private void login(){
 		String userEmail, userPassword;
 		
 		userEmail = UserInputUtils.getUserInputWithValidation(
 				"Digite o seu endenreço de email: ", 
 				"O email informado não é válido. Por favor, digite um endenreço de email válido: ", 
 				Pattern.compile(Constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE),
-				_scanner
+				scanner
 		);
 		
-		System.out.println("email é " + userEmail);
-		
 		System.out.println("Agora digite a sua senha: ");
-		userPassword = _scanner.next();
+		userPassword = scanner.next();
 		
-		if(_loginService.verifyLogin(userEmail, userPassword)) {
+		User user = loginService.login(userEmail, userPassword);
+		
+		if(user == null) {
+			System.out.println("Dados de login inválidos! Por favor, tente novamente com outras credenciais.");
+			show();
+		} else {
 			System.out.println("Usuário logado com sucesso!");
+			goToUserScreen(user);			
 		}
-		
-		show();
 	}
 	
 	private void createNewUser() {
@@ -77,12 +78,13 @@ public class LoginScreen extends Screen {
 				"Digite o seu endenreço de email: ", 
 				"O email informado não é válido. Por favor, digite um endenreço de email válido: ", 
 				Pattern.compile(Constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE),
-				_scanner
+				scanner
 		);
 		
 		userPassword = getUserPasswordWithVerification();
+		
 		try {
-			_loginService.createUser(userEmail, userPassword);
+			loginService.createUser(userEmail, userPassword);
 			System.out.println("Usuário criado com sucesso!");
 		} catch (Exception e) {
 			System.out.println("Falha ao cadastrar o novo usuário! Por favor, tente novamente mais tarde.");
@@ -95,14 +97,14 @@ public class LoginScreen extends Screen {
 		String userPassword;
 		boolean isValidPassword;
 		System.out.println("Digite a nova senha: ");	
-		userPassword = _scanner.next();
-		isValidPassword = _loginService.verifyPasswordRoles(userPassword);
+		userPassword = scanner.next();
+		isValidPassword = loginService.verifyPasswordRoles(userPassword);
 		
 		while(!isValidPassword){
 			System.out.println("Senha invalida. Sua senha deve possuir 8 caracteres, sendo pelo menos 1 letra minuscula, 1 letra maiuscula e 1 caractere especial.");
 			System.out.println("Por favor, digite uma nova senha: ");
-			userPassword = _scanner.next();
-			isValidPassword = _loginService.verifyPasswordRoles(userPassword);
+			userPassword = scanner.next();
+			isValidPassword = loginService.verifyPasswordRoles(userPassword);
 		}
 		
 		return userPassword;
@@ -117,6 +119,10 @@ public class LoginScreen extends Screen {
 	private void getOut() {
 		System.out.println("Obrigado por utilizar nosso sistema. Até a próxima!");
 		System.exit(0);
+	}
+	
+	private void goToUserScreen(User user) {
+		user.showMenu(viewController);
 	}
 	
 }
