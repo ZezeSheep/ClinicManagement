@@ -2,17 +2,19 @@ package controller;
 
 import java.util.Scanner;
 
+import controller.interfaces.IViewController;
 import screen.ClientScreen;
 import screen.DentistScreen;
 import screen.LoginScreen;
 import screen.SecretaryScreen;
+import screen.interfaces.IScreen;
 
-public class ViewController {
+public class ViewController implements IViewController{
 	
-	private ClientScreen clientScreen;
-	private DentistScreen dentistScreen;
-	private LoginScreen loginScreen;
-	private SecretaryScreen secretaryScreen;
+	private IScreen clientScreen;
+	private IScreen dentistScreen;
+	private IScreen loginScreen;
+	private IScreen secretaryScreen;
 	private Scanner scanner;
 	
 	public ViewController() {
@@ -24,19 +26,19 @@ public class ViewController {
 	}
 
 	public SecretaryScreen getSecretaryScreen() {
-		return secretaryScreen;
+		return (SecretaryScreen) secretaryScreen;
 	}
 
 	public DentistScreen getDentistScreen() {
-		return dentistScreen;
+		return (DentistScreen) dentistScreen;
 	}
 
 	public LoginScreen getLoginScreen() {
-		return loginScreen;
+		return (LoginScreen) loginScreen;
 	}
 
 	public ClientScreen getClientScreen() {
-		return clientScreen;
+		return (ClientScreen) clientScreen;
 	}
 	
 	public void start() {

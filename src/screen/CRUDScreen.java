@@ -2,11 +2,11 @@ package screen;
 
 import java.util.Scanner;
 
-import controller.ViewController;
+import controller.interfaces.IViewController;
 
 public abstract class CRUDScreen extends Screen {
 
-	public CRUDScreen(ViewController viewController, Scanner scanner) {
+	public CRUDScreen(IViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
 	}
 

@@ -4,21 +4,24 @@ import java.util.List;
 import java.util.Scanner;
 
 import controller.ViewController;
+import controller.interfaces.IViewController;
 import model.Dentist;
 import repository.DentistRepository;
 
 public class DentistScreen extends CRUDScreen {
 	
-	private DentistRepository dentistRepository;
 	private Dentist dentist;
 
 	public void setDentist(Dentist dentist) {
 		this.dentist = dentist;
 	}
 
-	public DentistScreen(ViewController viewController, Scanner scanner) {
+	public DentistScreen(IViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
-		dentistRepository = new DentistRepository("");
+	}
+	
+	public void show() {
+		System.out.println("> Exibindo menu do dentista.");
 	}
 
 	@Override

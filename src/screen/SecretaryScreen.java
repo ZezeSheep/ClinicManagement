@@ -8,7 +8,6 @@ import repository.SecretaryRepository;
 
 public class SecretaryScreen extends Screen {
 	
-	private SecretaryRepository secretaryRepository;
 	private Secretary secretary;
 
 	public void setSecretary(Secretary secretary) {
@@ -17,13 +16,11 @@ public class SecretaryScreen extends Screen {
 
 	public SecretaryScreen(ViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
-		secretaryRepository = new SecretaryRepository("");
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("> Exibindo menu do secretario.");
 	}
 
 }

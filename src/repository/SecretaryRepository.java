@@ -19,14 +19,12 @@ public class SecretaryRepository extends Repository<Secretary> {
 
     @Override
     public Secretary get(int id) {
-        // TODO Auto-generated method stub
-        return null;
+    	return new Secretary("Raphael secretário", "admin@cefet.com", "shuashuashua", "12345678912");
     }
 
 	@Override
 	public Secretary get(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Secretary("Raphael secretário", "admin@cefet.com", "shuashuashua", "12345678912");
 	}
 
 	@Override

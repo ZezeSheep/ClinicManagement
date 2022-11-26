@@ -19,14 +19,12 @@ public class DentistRepository extends Repository<Dentist> {
 
     @Override
     public Dentist get(int id) {
-        // TODO Auto-generated method stub
-        return null;
+    	return new Dentist("Raphael dentista", "admin@cefet.com", "shuashuashua", "12345678912");
     }
 
 	@Override
 	public Dentist get(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Dentist("Raphael dentista", "admin@cefet.com", "shuashuashua", "12345678912");
 	}
 
 	@Override

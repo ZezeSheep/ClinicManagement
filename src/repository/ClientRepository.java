@@ -24,14 +24,12 @@ public class ClientRepository extends Repository<Client> {
 
     @Override
     public Client get(int id) {
-        // TODO Auto-generated method stub
         return new Client("Raphael", "admin@cefet.com", "shuashuashua", "12345678912");
     }
 
 	@Override
 	public Client get(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Client("Raphael", "admin@cefet.com", "shuashuashua", "12345678912");
 	}
 
 	@Override
