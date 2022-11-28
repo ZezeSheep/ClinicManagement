@@ -2,14 +2,22 @@ package screen;
 
 import java.util.List;
 import java.util.Scanner;
+
 import controller.ViewController;
 import model.Client;
 import model.Constants;
+import model.Dentist;
+import model.Procedure;
 import repository.ClientRepository;
+import repository.DentistRepository;
+import repository.ProcedureRepository;
 
 public class ClientScreen extends CRUDScreen {
 	
 	private ClientRepository clientRepository;
+	private DentistRepository dentistRepository;
+	private ProcedureRepository procedureRepository;
+	private ConsultRepository consultRepository;
 	private Client client;
 
 	public void setClient(Client client) {
@@ -71,18 +79,32 @@ public class ClientScreen extends CRUDScreen {
 	}
 
 	private void showAllMyConsultation() {
-		// TODO Auto-generated method stub
+		List<Consult> consultList = consultRepository.getByClientId(client.getEmail());
+		for(Consult consult : consultList) {
+			String consultLine = String.format("Dentist: %s\nTime:%s\n", 
+					consult.getDentistName(),consult.getTime());
+			System.out.println(consultLine + "\n");
+		}
 		
 	}
 
 	private void showAllProcedures() {
-		// TODO Auto-generated method stub
+		List<Procedure> procedureList = procedureRepository.getAll();
+		for(Procedure procedure : procedureList) {
+			String procedureLine = String.format("ID: %s\n", 
+					procedure.getId());
+			System.out.println(procedureLine + "\n");
+		}
 		
 	}
 
 	private void showAllDentists() {
-		// TODO Auto-generated method stub
-		
+		List<Dentist> dentistList = dentistRepository.getAll();
+		for(Dentist dentist : dentistList) {
+			String dentistLine = String.format("Name: %s\nCPF:%s\nEmail:%s", 
+					dentist.getName(),dentist.getCpf(),dentist.getEmail());
+			System.out.println(dentistLine + "\n");
+		}		
 	}
 
 	@Override
