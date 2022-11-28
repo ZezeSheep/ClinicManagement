@@ -12,7 +12,7 @@ public abstract class CRUDScreen extends Screen {
 
 	@Override
 	public void show() {
-		showRecordedEntities();
+		//showRecordedEntities();
 		showOptions();		
 	}
 	

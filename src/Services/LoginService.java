@@ -12,11 +12,12 @@ import repository.DentistRepository;
 import repository.LoginRepository;
 import repository.Repository;
 import repository.SecretaryRepository;
+import repository.UserRepository;
 
 public class LoginService implements ILoginService {
 	
-	private Repository<User> loginRepository;
-	private HashMap<UserCategory, Repository> repositories;
+	private UserRepository loginRepository;
+	private HashMap<UserCategory, UserRepository> repositories;
 	private final int MIN_PASSWORD_LENGTH = 8;
 
 	public LoginService() {
@@ -27,8 +28,8 @@ public class LoginService implements ILoginService {
 
 	public User login(String email, String password){
 		User user = (User) loginRepository.get(email);
-		if(user != null && isCorrectPassword(password, user.passwordHash)){
-			return (User) repositories.get(user.userCategory).get(user.email);
+		if(user != null && isCorrectPassword(password, user.getPasswordHash())){
+			return (User) repositories.get(user.getUserCategory()).get(user.getEmail());
 		} else {
 			return null;
 		}
@@ -43,7 +44,7 @@ public class LoginService implements ILoginService {
 			loginRepository.save((User) client);
 			repositories.get(UserCategory.Client).save(client);
 		} catch (Exception e) {
-			System.err.println("Falha ao registrar o usuario " + client.email + " no banco de dados.");
+			System.err.println("Falha ao registrar o usuario " + client.getEmail() + " no banco de dados.");
 			e.printStackTrace(System.err);
 			throw e;
 		}
@@ -58,7 +59,7 @@ public class LoginService implements ILoginService {
 	}
 	
 	private void setupRespositories() {
-		this.repositories = new HashMap<UserCategory, Repository>();
+		this.repositories = new HashMap<UserCategory, UserRepository>();
 		this.repositories.put(UserCategory.Dentist, new DentistRepository(Constants.DENTIST_DB_FILE_NAME));
 		this.repositories.put(UserCategory.Secretary, new SecretaryRepository(Constants.SECRETARY_DB_FILE_NAME));
 		this.repositories.put(UserCategory.Client, new ClientRepository(Constants.CLIENT_DB_FILE_NAME));

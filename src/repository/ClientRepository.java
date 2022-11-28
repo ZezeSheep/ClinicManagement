@@ -16,12 +16,10 @@ public class ClientRepository extends UserRepository<Client> {
 
     public ClientRepository(String fileName) {
         super(fileName);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
     public List<Client> getAll() {
-        // TODO Auto-generated method stub
     	List<Client> clientList = new ArrayList<Client>();
 		try {
 			File f = new File(this.getFileName());
@@ -71,7 +69,7 @@ public class ClientRepository extends UserRepository<Client> {
 
 			oos.writeObject(clientList);
 
-			System.out.println("Client: "+ objT.email+ " save in Database");
+			System.out.println("Client: "+ objT.getEmail()+ " save in Database");
 
 			oos.close();
 			fos.close();

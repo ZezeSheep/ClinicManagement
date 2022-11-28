@@ -69,7 +69,7 @@ public class DentistRepository extends UserRepository<Dentist> {
 
 			oos.writeObject(dentistList);
 
-			System.out.println("Dentist: "+ objT.email+ " save in Database");
+			System.out.println("Dentist: "+ objT.getEmail()+ " save in Database");
 
 			oos.close();
 			fos.close();

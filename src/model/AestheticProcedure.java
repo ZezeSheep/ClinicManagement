@@ -1,10 +1,21 @@
 package model;
 
-public class AestheticProcedure extends Procedure{
+import java.util.List;
 
-    public AestheticProcedure(int id) {
+public class AestheticProcedure extends Procedure {
+	
+	private List<String> preTreatmentPhotosBase64;
+
+    public List<String> getPreTreatmentPhotosBase64() {
+		return preTreatmentPhotosBase64;
+	}
+
+	public void setPreTreatmentPhotosBase64(List<String> preTreatmentPhotosBase64) {
+		this.preTreatmentPhotosBase64 = preTreatmentPhotosBase64;
+	}
+
+	public AestheticProcedure(int id) {
         super(id);
-        //TODO Auto-generated constructor stub
     }
     
 }

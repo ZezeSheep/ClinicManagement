@@ -67,7 +67,7 @@ public class SecretaryRepository extends UserRepository<Secretary> {
 
 			oos.writeObject(secretaryList);
 
-			System.out.println("Secretary: "+ objT.email+ " save in Database");
+			System.out.println("Secretary: "+ objT.getEmail()+ " save in Database");
 
 			oos.close();
 			fos.close();

@@ -3,6 +3,14 @@ package screen;
 import java.util.List;
 import java.util.Scanner;
 
+import Services.ClientService;
+import Services.ConsultService;
+import Services.DentistService;
+import Services.ProcedureService;
+import Services.interfaces.IClientService;
+import Services.interfaces.IConsultService;
+import Services.interfaces.IDentistService;
+import Services.interfaces.IProcedureService;
 import controller.ViewController;
 import model.Client;
 import model.Constants;
@@ -12,12 +20,11 @@ import repository.ClientRepository;
 import repository.DentistRepository;
 import repository.ProcedureRepository;
 
-public class ClientScreen extends CRUDScreen {
+public class ClientScreen extends Screen {
 	
-	private ClientRepository clientRepository;
-	private DentistRepository dentistRepository;
-	private ProcedureRepository procedureRepository;
-	private ConsultRepository consultRepository;
+	private IConsultService consultService;
+	private IClientService clientService;
+	private IDentistService dentistService;
 	private Client client;
 
 	public void setClient(Client client) {
@@ -26,9 +33,11 @@ public class ClientScreen extends CRUDScreen {
 
 	public ClientScreen(ViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
-		clientRepository = new ClientRepository(Constants.CLIENT_DB_FILE_NAME);
+		consultService = new ConsultService();
+		clientService = new ClientService();
+		dentistService = new DentistService();
 		this.scanner = scanner;
-	}
+	} 
 	
 	public void show() {
 		boolean userSelectedAnyOption = false;

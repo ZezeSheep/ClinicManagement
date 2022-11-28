@@ -1,9 +1,13 @@
 package model;
 
+import java.util.List;
+
 import controller.interfaces.IViewController;
 import model.enums.UserCategory;
 
-public class Dentist extends User{
+public class Dentist extends InternUser {
+	
+	protected List<Consult> consults;
 
 	public Dentist(String email, String passwordHash) {
 		super(email, passwordHash, UserCategory.Dentist);
@@ -11,7 +15,7 @@ public class Dentist extends User{
 	
 	public Dentist(String name, String email, String passwordHash, String cpf) {
 		super(name, email, passwordHash, cpf);
-		this.userCategory = UserCategory.Dentist;
+		setUserCategory(UserCategory.Dentist);
 	}
 
 	@Override
@@ -19,5 +23,13 @@ public class Dentist extends User{
 		viewController.getDentistScreen().setDentist(this);
 		viewController.getDentistScreen().show();
 	}
-    
+
+	public List<Consult> getConsults() {
+		return consults;
+	}
+
+	public void setConsults(List<Consult> consults) {
+		this.consults = consults;
+	}
+
 }
