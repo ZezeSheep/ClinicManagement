@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import model.SurgicalProcedure;
 
@@ -41,14 +42,14 @@ public class SurgicalProcedureRepository extends ProcedureRepository<SurgicalPro
     }
 
 	@Override
-	public SurgicalProcedure get(int id) {
+	public SurgicalProcedure get(UUID id) {
 		List<SurgicalProcedure> surgicalProcedureList = this.getAll();
 
         Iterator<SurgicalProcedure> it = surgicalProcedureList.iterator();
 
 		while(it.hasNext()) {
 			SurgicalProcedure sP = it.next();
-			if(sP.getId() == id) {
+			if(sP.getId().compareTo(id) == 0) {
 				return sP;
 			}
 		}
@@ -78,7 +79,7 @@ public class SurgicalProcedureRepository extends ProcedureRepository<SurgicalPro
 	}
 
 	@Override
-	public void modify(int id, SurgicalProcedure objT) {
+	public void modify(UUID id, SurgicalProcedure objT) {
 		SurgicalProcedure oldProcedure = this.get(id);
 		if(oldProcedure != null) {
 			List<SurgicalProcedure> surgicalProcedureList = this.getAll();

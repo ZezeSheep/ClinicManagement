@@ -1,15 +1,16 @@
 package model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Procedure implements Serializable {
-    private int id;
+    private UUID id;
 
-    public Procedure(int id) {
+    public Procedure(UUID id) {
         this.id = id;
     }
 
-    public int getId() {
+    public UUID getId() {
         return this.id;
     }
 

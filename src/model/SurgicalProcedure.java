@@ -1,8 +1,10 @@
 package model;
 
+import java.util.UUID;
+
 public class SurgicalProcedure extends Procedure{
 
-    public SurgicalProcedure(int id) {
+    public SurgicalProcedure(UUID id) {
         super(id);
         //TODO Auto-generated constructor stub
     }

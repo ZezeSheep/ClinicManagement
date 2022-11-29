@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import model.RoutineProcedure;
 
@@ -42,14 +43,14 @@ public class RoutineProcedureRepository extends ProcedureRepository<RoutineProce
     }
 
 	@Override
-	public RoutineProcedure get(int id) {
+	public RoutineProcedure get(UUID id) {
 		List<RoutineProcedure> routineProcedureList = this.getAll();
 
         Iterator<RoutineProcedure> it = routineProcedureList.iterator();
 
 		while(it.hasNext()) {
 			RoutineProcedure rP = it.next();
-			if(rP.getId() == id) {
+			if(rP.getId().compareTo(id) == 0) {
 				return rP;
 			}
 		}
@@ -80,7 +81,7 @@ public class RoutineProcedureRepository extends ProcedureRepository<RoutineProce
 	}
 
 	@Override
-	public void modify(int id, RoutineProcedure objT) {
+	public void modify(UUID id, RoutineProcedure objT) {
 		RoutineProcedure oldProcedure = this.get(id);
 		if(oldProcedure != null) {
 			List<RoutineProcedure> routineProcedureList = this.getAll();

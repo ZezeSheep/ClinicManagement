@@ -1,8 +1,10 @@
 package model;
 
+import java.util.UUID;
+
 public class RoutineProcedure extends Procedure{
 
-    public RoutineProcedure(int id) {
+    public RoutineProcedure(UUID id) {
         super(id);
         //TODO Auto-generated constructor stub
     }
