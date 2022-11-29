@@ -62,7 +62,7 @@ public class SecretaryScreen extends Screen {
 					showAllProcedures();
 					break;
 				case "5":
-					createProcedure();
+					//createProcedure();
 					break;
 				case "6":
 					//editProcedure();
@@ -104,9 +104,9 @@ public class SecretaryScreen extends Screen {
 		
 	}
 
-	private void createProcedure() {
+	/*private void createProcedure() {
 		System.out.print("Qual o tipo de procedimento deve ser criado:\n");
-		System.out.print("(1) Estetco");
+		System.out.print("(1) Estetico");
 		System.out.print("(2) Rotina");
 		System.out.print("(3) Cirurgico");
 		int choosenIndex = scanner.nextInt();
@@ -126,7 +126,7 @@ public class SecretaryScreen extends Screen {
 			procedureService.createSurgicalProcedure(newProcedure);
 		}
 		
-	}
+	}*/
 
 	private void showAllProcedures() {
 		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
@@ -201,7 +201,7 @@ public class SecretaryScreen extends Screen {
 		System.out.print("Qual o cpf do dentista: ");
 		String cpf = scanner.nextLine();
 		Dentist newDentist = new Dentist(name, email, senhaHash, cpf);
-		dentistService.createDentist(newDentist);		
+		dentistService.createDentist(newDentist);
 	}
 
 	private void showAllDentists() {

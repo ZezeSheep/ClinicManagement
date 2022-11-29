@@ -89,10 +89,10 @@ public class ClientScreen extends Screen {
 		Procedure choosenProcedure;
 		Dentist choosenDentist;
 		
-		System.out.print("Qual o tipo de procedimento deve ser criado:\n");
-		System.out.print("(1) Estetco");
-		System.out.print("(2) Rotina");
-		System.out.print("(3) Cirurgico");
+		System.out.println("Qual o tipo de procedimento deve ser criado:");
+		System.out.println("(1) Estetico");
+		System.out.println("(2) Rotina");
+		System.out.println("(3) Cirurgico");
 		int choosenIndex = scanner.nextInt();
 		if(choosenIndex == 1) {
 			int indexProcedure = 1;
