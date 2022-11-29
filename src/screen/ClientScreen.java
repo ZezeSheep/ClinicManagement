@@ -90,7 +90,7 @@ public class ClientScreen extends Screen {
 		Procedure choosenProcedure;
 		Dentist choosenDentist;
 		
-		System.out.println("Qual o tipo de procedimento deve ser criado:");
+		System.out.println("Qual o tipo de procedimento que sera feito:");
 		System.out.println("(1) Estetico");
 		System.out.println("(2) Rotina");
 		System.out.println("(3) Cirurgico");
@@ -99,8 +99,8 @@ public class ClientScreen extends Screen {
 			int indexProcedure = 1;
 			List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
 			for(AestheticProcedure procedure : aestheticProcedureList) {
-				String procedureLine = String.format("(%d) Name: %s\nID:%d\n", 
-						indexProcedure, procedure.getName(),procedure.getId());
+				String procedureLine = String.format("(%d) Name: %s\n", 
+						indexProcedure, procedure.getName());
 				indexProcedure++;
 				System.out.println(procedureLine + "\n");
 			}
@@ -112,8 +112,8 @@ public class ClientScreen extends Screen {
 			int indexProcedure = 1;
 			List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
 			for(RoutineProcedure procedure : routineProcedureList) {
-				String procedureLine = String.format("(%d) Name: %s\nID:%d\n", 
-						indexProcedure, procedure.getName(),procedure.getId());
+				String procedureLine = String.format("(%d) Name: %s\n", 
+						indexProcedure, procedure.getName());
 				indexProcedure++;
 				System.out.println(procedureLine + "\n");
 			}
@@ -125,8 +125,8 @@ public class ClientScreen extends Screen {
 			int indexProcedure = 1;
 			List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
 			for(SurgicalProcedure procedure : surgicalProcedureList) {
-				String procedureLine = String.format("(%d) Name: %s\nID:%d\n", 
-						indexProcedure, procedure.getName(),procedure.getId());
+				String procedureLine = String.format("(%d) Name: %s\n", 
+						indexProcedure, procedure.getName());
 				indexProcedure++;
 				System.out.println(procedureLine + "\n");
 			}
@@ -156,7 +156,8 @@ public class ClientScreen extends Screen {
 	}
 
 	private void showAllMyConsultation() {
-		List<Consult> consultList = client.getConsults();
+		List<Consult> consultList = consultService.getAllConsultsOfClient(client.getEmail());
+		System.out.println(consultList);
 		if(consultList != null) {
 			for(Consult consult : consultList) {
 				String consultLine = String.format("Sala: %s\nDescricao:%s\n", 
@@ -169,25 +170,26 @@ public class ClientScreen extends Screen {
 	}
 
 	private void showAllProcedures() {
+		ScreenShowUtils.clearScreen();
 		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
 		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
 		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
 		System.out.println("Procedimentos esteticos:");
 		for(AestheticProcedure procedure : aestheticProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
-			System.out.println(procedureLine + "\n");
+			String procedureLine = String.format("Name: %s\n", 
+					procedure.getName());
+			System.out.println(procedureLine);
 		}
 		System.out.println("Procedimentos de rotina:");
 		for(RoutineProcedure procedure : routineProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
+			String procedureLine = String.format("Name: %s\n", 
+					procedure.getName());
 			System.out.println(procedureLine + "\n");
 		}
 		System.out.println("Procedimentos cirurgico:");
 		for(SurgicalProcedure procedure : surgicalProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
+			String procedureLine = String.format("Name: %s\n", 
+					procedure.getName());
 			System.out.println(procedureLine + "\n");
 		}
 		ScreenShowUtils.pressAnyButton();

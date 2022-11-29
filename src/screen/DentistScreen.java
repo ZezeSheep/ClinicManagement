@@ -49,7 +49,6 @@ public class DentistScreen extends Screen {
 					break;
 				case "3":
 					getOut();
-					break;
 				default: 
 					userSelectedAnyOption = false;
 					break;
