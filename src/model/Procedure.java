@@ -1,8 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Procedure {
+public class Procedure implements Serializable {
+	
+	private static final long serialVersionUID = 7100179587555243994L;
 	
 	protected String name;
 	private UUID id;

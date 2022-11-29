@@ -5,7 +5,6 @@ import java.util.List;
 import Services.interfaces.IProcedureService;
 import model.AestheticProcedure;
 import model.Constants;
-import model.Procedure;
 import model.RoutineProcedure;
 import model.SurgicalProcedure;
 import repository.AestheticProcedureRepository;
@@ -36,14 +35,14 @@ public class ProcedureService implements IProcedureService{
 	}
 	
 	public void createAestheticProcedure(AestheticProcedure aestheticProcedure) {
-		
+		aestheticProcedureRepository.save(aestheticProcedure);		
 	}
 	
 	public void createRoutineProcedure(RoutineProcedure routineProcedure) {
-		
+		routineProcedureRepository.save(routineProcedure);		
 	}
 
 	public void createSurgicalProcedure(SurgicalProcedure surgicalProcedure) {
-	
+		surgicalProcedureRepository.save(surgicalProcedure);	
 	}
 }

@@ -1,8 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class SurgicalProcedure extends Procedure {
+public class SurgicalProcedure extends Procedure implements Serializable {
+	
+	private static final long serialVersionUID = 7100179587555243994L;
 	
 	private String xRayBase64;
 	private String StringtomographyBase64;

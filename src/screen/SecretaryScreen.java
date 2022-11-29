@@ -2,12 +2,15 @@ package screen;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import Services.ClientService;
 import Services.ConsultService;
 import Services.DentistService;
 import Services.ProcedureService;
 import Services.SecretaryService;
+import Services.DentistService;
+import Services.ProcedureService;
 import Services.SecurityService;
 import Services.interfaces.IClientService;
 import Services.interfaces.IConsultService;
@@ -17,7 +20,6 @@ import Services.interfaces.ISecretaryService;
 import controller.ViewController;
 import model.AestheticProcedure;
 import model.Dentist;
-import model.Procedure;
 import model.RoutineProcedure;
 import model.Secretary;
 import model.SurgicalProcedure;
@@ -43,6 +45,7 @@ public class SecretaryScreen extends Screen {
 		secretaryService = new SecretaryService();
 		clientSerivce = new ClientService();
 		consultService = new ConsultService();
+        this.procedureService = new ProcedureService();
 	}
 
 	@Override
@@ -50,17 +53,17 @@ public class SecretaryScreen extends Screen {
 		boolean userSelectedAnyOption = false;
 		while(!userSelectedAnyOption) {
 			System.out.println(
-					  "(1) Ver dentistas\n"
-					+ "(2) Cadastrar dentista\n"
-					+ "(3) Editar dentista\n"
-					+ "(4) Ver procedimentos\n"
-					+ "(5) Cadastrar procedimento\n"
-					+ "(6) Editar procedimento\n"
-					+ "(7) Ver pacientes\n"
-					+ "(8) Ver secretarios\n"
-					+ "(9) Cadastrar secretário\n"
-					+ "(10) Editar secretário\n"
-					+ "(11) Sair\n");
+					"(1) Ver dentistas\n"
+		          + "(2) Cadastrar dentista\n"
+		          + "(3) Editar dentista\n"
+		          + "(4) Ver procedimentos\n"
+		          + "(5) Cadastrar procedimento\n"
+		          + "(6) Editar procedimento\n"
+		          + "(7) Ver pacientes\n"
+		          + "(8) Ver secretarios\n"
+		          + "(9) Cadastrar secretï¿½rio\n"
+		          + "(10) Editar secretï¿½rio\n"
+		          + "(11) Sair\n");
 			String optionSelected = scanner.next();
 			userSelectedAnyOption = true;
 			
@@ -72,13 +75,13 @@ public class SecretaryScreen extends Screen {
 					createDentist();
 					break;
 				case "3":
-					editDentist();
+					//editDentist();
 					break;
 				case "4":
 					showAllProcedures();
 					break;
 				case "5":
-					//createProcedure();
+					createProcedure();
 					break;
 				case "6":
 					//editProcedure();
@@ -106,7 +109,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void createSecretary() {
-		System.out.println("Certo, vamos cadastrar um novo secretário!");
+		System.out.println("Certo, vamos cadastrar um novo secretï¿½rio!");
 		System.out.println("Digite o nome do secretario: ");
 		scanner.nextLine();
 		String name = scanner.nextLine();
@@ -141,29 +144,43 @@ public class SecretaryScreen extends Screen {
 		
 	}
 
-	/*private void createProcedure() {
-		System.out.print("Qual o tipo de procedimento deve ser criado:\n");
-		System.out.print("(1) Estetico");
-		System.out.print("(2) Rotina");
-		System.out.print("(3) Cirurgico");
+	private void createProcedure() {
+		System.out.println("Qual o tipo de procedimento deve ser criado:");
+		System.out.println("(1) Estetico");
+		System.out.println("(2) Rotina");
+		System.out.println("(3) Cirurgico");
 		int choosenIndex = scanner.nextInt();
 		if(choosenIndex == 1) {
-			AestheticProcedure newProcedure = new AestheticProcedure(1);
-			newProcedure.setName("Procedimento estetico");
+			AestheticProcedure newProcedure = new AestheticProcedure(UUID.randomUUID());
+			System.out.println("Qual eh o nome do procedimento estetico:");
+			scanner.nextLine();
+			String name = scanner.nextLine();
+			newProcedure.setName(name);
 			procedureService.createAestheticProcedure(newProcedure);
+			System.out.println("Procedimento estetico criado com sucesso");
 		}
 		else if(choosenIndex == 2) {
-			RoutineProcedure newProcedure = new RoutineProcedure(2);
-			newProcedure.setName("Procedimento de rotina");
+			RoutineProcedure newProcedure = new RoutineProcedure(UUID.randomUUID());
+			System.out.println("Qual eh o nome do procedimento de rotina:");
+			scanner.nextLine();
+			String name = scanner.nextLine();
+			newProcedure.setName(name);
 			procedureService.createRoutineProcedure(newProcedure);
+			System.out.println("Procedimento de rotina criado com sucesso");
 		}
 		else {
-			SurgicalProcedure newProcedure = new SurgicalProcedure(3);
-			newProcedure.setName("Procedimento cirigico");
+			SurgicalProcedure newProcedure = new SurgicalProcedure(UUID.randomUUID());
+			System.out.println("Qual eh o nome do procedimento cirurgico:");
+			scanner.nextLine();
+			String name = scanner.nextLine();
+			newProcedure.setName(name);
 			procedureService.createSurgicalProcedure(newProcedure);
+			System.out.println("Procedimento cirurgico criado com sucesso");
 		}
+		ScreenShowUtils.pressAnyButton();
+		show();
 		
-	}*/
+	}
 
 	private void showAllProcedures() {
 		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
@@ -171,20 +188,20 @@ public class SecretaryScreen extends Screen {
 		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
 		System.out.println("Procedimentos esteticos:");
 		for(AestheticProcedure procedure : aestheticProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
-			System.out.println(procedureLine + "\n");
+			String procedureLine = String.format("Name: %s\n", 
+					procedure.getName());
+			System.out.println(procedureLine);
 		}
 		System.out.println("Procedimentos de rotina:");
 		for(RoutineProcedure procedure : routineProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
+			String procedureLine = String.format("Name: %s\n", 
+					procedure.getName());
 			System.out.println(procedureLine + "\n");
 		}
 		System.out.println("Procedimentos cirurgico:");
 		for(SurgicalProcedure procedure : surgicalProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
+			String procedureLine = String.format("Name: %s\n", 
+					procedure.getName());
 			System.out.println(procedureLine + "\n");
 		}
 		ScreenShowUtils.pressAnyButton();
@@ -192,7 +209,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void getOut() {
-		System.out.println("Obrigado por utilizar nosso sistema. Até a próxima!");
+		System.out.println("Obrigado por utilizar nosso sistema. Atï¿½ a prï¿½xima!");
 		System.exit(0);		
 	}
 
