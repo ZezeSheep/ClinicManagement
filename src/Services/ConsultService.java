@@ -1,5 +1,7 @@
 package Services;
 
+import java.util.UUID;
+
 import Services.interfaces.IClientService;
 import Services.interfaces.IConsultService;
 import Services.interfaces.IDentistService;
@@ -17,6 +19,8 @@ public class ConsultService implements IConsultService {
 	
 	public void createConsult(Consult consult, String clientEmail, String dentistEmail) {
 		consult.setId(0);
+		String guid = java.util.UUID.randomUUID().toString();
+
 		clientService.addConsult(consult, clientEmail);
 		dentistService.addConsult(consult, dentistEmail);
 	}

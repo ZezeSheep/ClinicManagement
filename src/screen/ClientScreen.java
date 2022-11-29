@@ -108,23 +108,23 @@ public class ClientScreen extends Screen {
 	}
 
 	private void showAllDentists() {
-		List<Dentist> dentistList = dentistRepository.getAll();
+		List<Dentist> dentistList = dentistService.getAllDentists();
 		for(Dentist dentist : dentistList) {
-			String dentistLine = String.format("Name: %s\nCPF:%s\nEmail:%s", 
-					dentist.getName(),dentist.getCpf(),dentist.getEmail());
+			String dentistLine = String.format("Name: %s\nCodigo de Registro:%s\n", 
+					dentist.getName(),dentist.getRegisterNumber());
 			System.out.println(dentistLine + "\n");
 		}		
 	}
 
-	@Override
+	/*@Override
 	protected void showRecordedEntities() {
-		/*List<Client> recordedClients = clientRepository.getAll();
+		List<Client> recordedClients = clientRepository.getAll();
 		for(Client client : recordedClients) {
 			String clientLine = String.format("Name: %s\nPlan Number:%s\nDocument:%s", 
 					client.getName(),client.getPlanNumber(),client.getDocument());
 			System.out.println(clientLine + "\n");
-		}*/		
-	}
+		}*	
+	}*/
 
 	/*@Override
 	protected void ChangeScreen() {
