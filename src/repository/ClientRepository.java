@@ -85,7 +85,7 @@ public class ClientRepository extends UserRepository<Client> {
 
 		if(oldUser != null) {
 			List<Client> clientList = this.getAll();
-			clientList.remove(oldUser);
+			removeFromList(clientList, oldUser);
 			clientList.add(objT);
 
 			try {
@@ -106,4 +106,17 @@ public class ClientRepository extends UserRepository<Client> {
 			System.out.println("Client: " + email + "don't exist in Database");
 		}
 	}
+	
+	private List<Client> removeFromList(List<Client> clientList, Client client){
+		for (Iterator<Client> iterator = clientList.iterator(); iterator.hasNext();){  
+			Client currentClient = iterator.next();  
+	      
+	        if (currentClient.getEmail().equals(client.getEmail())){  
+	               iterator.remove();
+	        }
+		}
+		return clientList;
+	}
+	
+	
 }

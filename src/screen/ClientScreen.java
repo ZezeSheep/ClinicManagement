@@ -1,6 +1,7 @@
 package screen;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import Services.ClientService;
@@ -87,72 +88,48 @@ public class ClientScreen extends Screen {
 	}
 
 	private void registerNewConsultation() {
-		Procedure choosenProcedure;
+		Procedure choosenProcedure = null;
 		Dentist choosenDentist;
-		
-		System.out.println("Qual o tipo de procedimento que sera feito:");
-		System.out.println("(1) Estetico");
-		System.out.println("(2) Rotina");
-		System.out.println("(3) Cirurgico");
-		int choosenIndex = scanner.nextInt();
-		if(choosenIndex == 1) {
-			int indexProcedure = 1;
-			List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
-			for(AestheticProcedure procedure : aestheticProcedureList) {
-				String procedureLine = String.format("(%d) Name: %s\n", 
-						indexProcedure, procedure.getName());
-				indexProcedure++;
-				System.out.println(procedureLine + "\n");
+		boolean userSelectedAnyOption = false;
+		while(!userSelectedAnyOption) {
+			System.out.println("Qual o tipo de procedimento que sera feito:");
+			System.out.println("(1) Estetico");
+			System.out.println("(2) Rotina");
+			System.out.println("(3) Cirurgico");
+			String choosenIndex = scanner.next();
+			switch(choosenIndex) {
+				case "1":
+					choosenProcedure = getAestheticProcedure();
+					userSelectedAnyOption = true;
+					break;
+				case "2":
+					choosenProcedure = getRoutineProcedure();
+					userSelectedAnyOption = true;
+					break;
+				case "3":
+					choosenProcedure = getSurgicalProcedure();
+					userSelectedAnyOption = true;
+					break;
+				default: 
+					userSelectedAnyOption = false;
+					break;
 			}
-			System.out.println("Escolha um procedimento: ");
-			int choosenProcedureIndex = scanner.nextInt();
-			choosenProcedure = aestheticProcedureList.get(choosenProcedureIndex-1);
-		}
-		else if(choosenIndex == 2) {
-			int indexProcedure = 1;
-			List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
-			for(RoutineProcedure procedure : routineProcedureList) {
-				String procedureLine = String.format("(%d) Name: %s\n", 
-						indexProcedure, procedure.getName());
-				indexProcedure++;
-				System.out.println(procedureLine + "\n");
-			}
-			System.out.println("Escolha um procedimento: ");
-			int choosenProcedureIndex = scanner.nextInt();
-			choosenProcedure = routineProcedureList.get(choosenProcedureIndex-1);
-		}
-		else {
-			int indexProcedure = 1;
-			List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
-			for(SurgicalProcedure procedure : surgicalProcedureList) {
-				String procedureLine = String.format("(%d) Name: %s\n", 
-						indexProcedure, procedure.getName());
-				indexProcedure++;
-				System.out.println(procedureLine + "\n");
-			}
-			System.out.println("Escolha um procedimento: ");
-			int choosenProcedureIndex = scanner.nextInt();
-			choosenProcedure = surgicalProcedureList.get(choosenProcedureIndex-1);
 		}
 		
-		int index = 1;
-		List<Dentist> dentistList = dentistService.getAllDentists();
-		for(Dentist dentist : dentistList) {
-			String dentistLine = String.format("(%d) Name: %s\nRegister number:%s\n", 
-					index, dentist.getName(),dentist.getRegisterNumber());
-			System.out.println(dentistLine + "\n");
-			index++;
-		}
-		System.out.println("Escolha um dentista: ");
-		int choosenDentistIndex = scanner.nextInt();
-		choosenDentist = dentistList.get(choosenDentistIndex-1);
+		choosenDentist = getDentistByList();
 		
-		Consult consult = new Consult(1);
+		Consult consult = new Consult(getRandomInt());
 		consult.setProcedure(choosenProcedure);
+		System.out.println("Digite a descricao da consulta");
+		scanner.nextLine();
+		String description = scanner.nextLine();
+		consult.setDescription(description);
+		int roomNumber = Math.abs(getRandomInt()%10) + 1;
+		consult.setRoom(String.valueOf(roomNumber));
 		consultService.createConsult(consult, client.getEmail(), choosenDentist.getEmail());
 		System.out.println("Consulta criada com sucesso");
 		ScreenShowUtils.pressAnyButton();		
-		show();		
+		show();	
 	}
 
 	private void showAllMyConsultation() {
@@ -205,5 +182,66 @@ public class ClientScreen extends Screen {
 		}
 		ScreenShowUtils.pressAnyButton();
 		show();
+	}
+	
+	private int getRandomInt() {
+		Random r = new Random();
+		return r.nextInt();
+	}
+	
+	private Dentist getDentistByList() {
+		int index = 1;
+		List<Dentist> dentistList = dentistService.getAllDentists();
+		for(Dentist dentist : dentistList) {
+			String dentistLine = String.format("(%d) Name: %s\nRegister number:%s\n", 
+					index, dentist.getName(),dentist.getRegisterNumber());
+			System.out.println(dentistLine + "\n");
+			index++;
+		}
+		System.out.println("Escolha um dentista: ");
+		int choosenDentistIndex = scanner.nextInt();
+		return dentistList.get(choosenDentistIndex-1);
+	}
+	
+	private AestheticProcedure getAestheticProcedure() {
+		int indexProcedure = 1;
+		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
+		for(AestheticProcedure procedure : aestheticProcedureList) {
+			String procedureLine = String.format("(%d) Name: %s\n", 
+					indexProcedure, procedure.getName());
+			indexProcedure++;
+			System.out.println(procedureLine + "\n");
+		}
+		System.out.println("Escolha um procedimento: ");
+		int choosenProcedureIndex = scanner.nextInt();
+		return aestheticProcedureList.get(choosenProcedureIndex-1);
+	}
+	
+	private RoutineProcedure getRoutineProcedure() {
+		int indexProcedure = 1;
+		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
+		for(RoutineProcedure procedure : routineProcedureList) {
+			String procedureLine = String.format("(%d) Name: %s\n", 
+					indexProcedure, procedure.getName());
+			indexProcedure++;
+			System.out.println(procedureLine + "\n");
+		}
+		System.out.println("Escolha um procedimento: ");
+		int choosenProcedureIndex = scanner.nextInt();
+		return routineProcedureList.get(choosenProcedureIndex-1);
+	}
+	
+	private SurgicalProcedure getSurgicalProcedure() {
+		int indexProcedure = 1;
+		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		for(SurgicalProcedure procedure : surgicalProcedureList) {
+			String procedureLine = String.format("(%d) Name: %s\n", 
+					indexProcedure, procedure.getName());
+			indexProcedure++;
+			System.out.println(procedureLine + "\n");
+		}
+		System.out.println("Escolha um procedimento: ");
+		int choosenProcedureIndex = scanner.nextInt();
+		return surgicalProcedureList.get(choosenProcedureIndex-1);
 	}
 }
