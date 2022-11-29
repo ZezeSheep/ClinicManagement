@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import model.AestheticProcedure;
 
@@ -41,14 +42,14 @@ public class AestheticProcedureRepository extends ProcedureRepository<AestheticP
     }
 
 	@Override
-	public AestheticProcedure get(int id) {
+	public AestheticProcedure get(UUID id) {
 		List<AestheticProcedure> aestheticProcedureList = this.getAll();
 
         Iterator<AestheticProcedure> it = aestheticProcedureList.iterator();
 
 		while(it.hasNext()) {
 			AestheticProcedure aP = it.next();
-			if(aP.getId() == id) {
+			if(aP.getId().compareTo(id) == 0) {
 				return aP;
 			}
 		}
@@ -76,6 +77,33 @@ public class AestheticProcedureRepository extends ProcedureRepository<AestheticP
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public void modify(UUID id, AestheticProcedure objT) {
+		AestheticProcedure oldProcedure = this.get(id);
+		if(oldProcedure != null) {
+			List<AestheticProcedure> aestheticProcedureList = this.getAll();
+			aestheticProcedureList.remove(oldProcedure);
+			aestheticProcedureList.add(objT);
+
+			try {
+				FileOutputStream fos = new FileOutputStream(this.getFileName());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+	
+				oos.writeObject(aestheticProcedureList);
+	
+				System.out.println("Aesthetic Procedure: "+ objT.getId()+ " modify in Database");
+	
+				oos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Aesthetic Procedure: "+ objT.getId()+ " don't exist in Database");
+		}
 	}
     
 }

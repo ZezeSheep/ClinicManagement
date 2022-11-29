@@ -77,5 +77,32 @@ public class SecretaryRepository extends UserRepository<Secretary> {
 		
 	}
 
+	@Override
+	public void modify(String email, Secretary objT) {
+		Secretary oldUser = this.get(email);
+
+		if(oldUser != null) {
+			List<Secretary> secretaryList = this.getAll();
+			secretaryList.remove(oldUser);
+			secretaryList.add(objT);
+
+			try {
+				FileOutputStream fos = new FileOutputStream(this.getFileName());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+	
+				oos.writeObject(secretaryList);
+	
+				System.out.println("Secretary: "+ email+ " modify in Database");
+	
+				oos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Secretary: " + email + "don't exist in Database");
+		}
+	}
     
 }

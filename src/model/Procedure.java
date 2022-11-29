@@ -1,22 +1,20 @@
 package model;
 
+import java.util.UUID;
+
 public class Procedure {
 	
 	protected String name;
-	protected int id;
+	private UUID id;
 
-	public Procedure(int id) {
+    public Procedure(UUID id) {
 		super();
-		this.id = id;
-	}
+        this.id = id;
+    }
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+    public UUID getId() {
+        return this.id;
+    }
 
 	public String getName() {
 		return name;

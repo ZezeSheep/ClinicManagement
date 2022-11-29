@@ -1,12 +1,14 @@
 package model;
 
+import java.util.UUID;
+
 public class SurgicalProcedure extends Procedure {
 	
 	private String xRayBase64;
 	private String StringtomographyBase64;
 	private int recommendedRestDays;
 
-    public SurgicalProcedure(int id) {
+    public SurgicalProcedure(UUID id) {
         super(id);
     }
 

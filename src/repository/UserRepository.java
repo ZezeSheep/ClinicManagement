@@ -6,8 +6,8 @@ public abstract class UserRepository<T> extends Repository<T> {
         super(fileName);
     }
 
-    // Retorna null quando nao encontrar correspondencias
     public abstract T get(String email);
     
+    public abstract void modify(String email, T objT);
 
 }

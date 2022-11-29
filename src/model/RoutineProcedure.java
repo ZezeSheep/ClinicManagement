@@ -1,8 +1,10 @@
 package model;
 
-public class RoutineProcedure extends Procedure {
+import java.util.UUID;
 
-    public RoutineProcedure(int id) {
+public class RoutineProcedure extends Procedure{
+
+    public RoutineProcedure(UUID id) {
         super(id);
     }
     

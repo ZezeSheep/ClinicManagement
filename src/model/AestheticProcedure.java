@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AestheticProcedure extends Procedure {
 	
@@ -14,8 +15,8 @@ public class AestheticProcedure extends Procedure {
 		this.preTreatmentPhotosBase64 = preTreatmentPhotosBase64;
 	}
 
-	public AestheticProcedure(int id) {
+	public AestheticProcedure(UUID id) {
         super(id);
     }
-    
+
 }
