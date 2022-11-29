@@ -2,7 +2,6 @@ package controller;
 
 import java.util.Scanner;
 
-import Services.ProcedureService;
 import controller.interfaces.IViewController;
 import screen.ClientScreen;
 import screen.DentistScreen;

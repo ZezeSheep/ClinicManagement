@@ -10,5 +10,9 @@ public interface IClientService {
 	void addConsult(Consult consult, String clientEmail);
 	
 	public List<Client> getAllClients();
+	
+	public Client getClientByEmail(String email);
+	
+	List<Consult> getAllConsultsFromClientEmail(String email);
 
 }

@@ -1,12 +1,13 @@
 package Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Services.interfaces.IClientService;
 import model.Client;
 import model.Constants;
 import model.Consult;
-import repository.*;
+import repository.ClientRepository;
 
 public class ClientService implements IClientService {
 	
@@ -31,6 +32,9 @@ public class ClientService implements IClientService {
 	public void addConsult(Consult consult, String clientEmail) {
 		Client client = getClientByEmail(clientEmail);
 		List<Consult> consults = client.getConsults();
+		if(consults == null) {
+			consults = new ArrayList<>();
+		}
 		consults.add(consult);
 		client.setConsults(consults);
 		clientRepository.modify(client.getEmail(), client);

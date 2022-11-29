@@ -1,6 +1,6 @@
 package Services;
 
-import java.util.UUID;
+import java.util.List;
 
 import Services.interfaces.IClientService;
 import Services.interfaces.IConsultService;
@@ -23,6 +23,10 @@ public class ConsultService implements IConsultService {
 
 		clientService.addConsult(consult, clientEmail);
 		dentistService.addConsult(consult, dentistEmail);
+	}
+	
+	public List<Consult> getAllConsultsOfClient(String email){
+		return clientService.getAllConsultsFromClientEmail(email);
 	}
 	
 }

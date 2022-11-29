@@ -1,5 +1,6 @@
 package Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Services.interfaces.IDentistService;
@@ -32,6 +33,9 @@ public class DentistService implements IDentistService{
 	public void addConsult(Consult consult, String dentistEmail) {
 		Dentist dentist = getDentistByEmail(dentistEmail);
 		List<Consult> consults = dentist.getConsults();
+		if(consults == null) {
+			consults= new ArrayList<>();
+		}
 		consults.add(consult);
 		dentist.setConsults(consults);
 		dentistRepository.modify(dentist.getEmail(), dentist);
