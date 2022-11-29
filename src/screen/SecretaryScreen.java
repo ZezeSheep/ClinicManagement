@@ -3,9 +3,17 @@ package screen;
 import java.util.List;
 import java.util.Scanner;
 
+import Services.ClientService;
+import Services.ConsultService;
+import Services.DentistService;
+import Services.ProcedureService;
+import Services.SecretaryService;
 import Services.SecurityService;
+import Services.interfaces.IClientService;
+import Services.interfaces.IConsultService;
 import Services.interfaces.IDentistService;
 import Services.interfaces.IProcedureService;
+import Services.interfaces.ISecretaryService;
 import controller.ViewController;
 import model.AestheticProcedure;
 import model.Dentist;
@@ -20,16 +28,21 @@ public class SecretaryScreen extends Screen {
 	private Secretary secretary;
 	private IDentistService dentistService;
 	private IProcedureService procedureService;
+	private IConsultService consultService;
+	private IClientService clientSerivce;
+	private ISecretaryService secretaryService;
 
 	public void setSecretary(Secretary secretary) {
 		this.secretary = secretary;
 	}
 
-	public SecretaryScreen(ViewController viewController, Scanner scanner, IDentistService dentistService,
-			IProcedureService procedureService) {
+	public SecretaryScreen(ViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
-		this.dentistService = dentistService;
-		this.procedureService = procedureService;
+		this.dentistService = new DentistService();
+		this.procedureService = new ProcedureService();
+		secretaryService = new SecretaryService();
+		clientSerivce = new ClientService();
+		consultService = new ConsultService();
 	}
 
 	@Override
@@ -39,12 +52,15 @@ public class SecretaryScreen extends Screen {
 			System.out.println(
 					  "(1) Ver dentistas\n"
 					+ "(2) Cadastrar dentista\n"
-					+ "(3) Ver procedimentos\n"
-					+ "(4) Cadastrar procedimento\n"
-					+ "(5) Ver pacientes\n"
-					+ "(6) Ver secretários\n"
-					+ "(7) Cadastrar secretário\n"
-					+ "(8) Sair\n");
+					+ "(3) Editar dentista\n"
+					+ "(4) Ver procedimentos\n"
+					+ "(5) Cadastrar procedimento\n"
+					+ "(6) Editar procedimento\n"
+					+ "(7) Ver pacientes\n"
+					+ "(8) Ver secretarios\n"
+					+ "(9) Cadastrar secretário\n"
+					+ "(10) Editar secretário\n"
+					+ "(11) Sair\n");
 			String optionSelected = scanner.next();
 			userSelectedAnyOption = true;
 			
@@ -90,13 +106,34 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void createSecretary() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Certo, vamos cadastrar um novo secretário!");
+		System.out.println("Digite o nome do secretario: ");
+		scanner.nextLine();
+		String name = scanner.nextLine();
+		System.out.print("Digite o email do secretario: ");
+		String email = scanner.next();
+		System.out.print("Digite a senha do secretario: ");
+		String senha = scanner.next();
+		Secretary secretary = new Secretary(email, senha);
+		secretary.setName(name);
+		System.out.print("Digite o numero de registro do secretario: ");
+		int registerNumber = scanner.nextInt();
+		secretary.setRegisterNumber(registerNumber);
+		secretaryService.createSecretary(secretary);
+		System.out.print("Secretario criado com sucesso!");
+		ScreenShowUtils.pressAnyButton();
+		show();
 	}
 
 	private void showAllSecretaries() {
-		// TODO Auto-generated method stub
-		
+		List<Secretary> secreataries = secretaryService.getAllSecretaries();
+		for(Secretary secretary : secreataries) {
+			String secretaryLine = String.format("Name: %s\nRegister number:%s\n", 
+					secretary.getName(),secretary.getRegisterNumber());
+			System.out.println(secretaryLine + "\n");
+		}
+		ScreenShowUtils.pressAnyButton();
+		show();
 	}
 
 	private void showAllClients() {
@@ -197,10 +234,9 @@ public class SecretaryScreen extends Screen {
 		String email = scanner.nextLine();
 		System.out.print("Qual a senha do dentista: ");
 		String senha = scanner.nextLine();
-		String senhaHash = SecurityService.getMD5Hash(senha);
 		System.out.print("Qual o cpf do dentista: ");
 		String cpf = scanner.nextLine();
-		Dentist newDentist = new Dentist(name, email, senhaHash, cpf);
+		Dentist newDentist = new Dentist(name, email, senha, cpf);
 		dentistService.createDentist(newDentist);
 	}
 

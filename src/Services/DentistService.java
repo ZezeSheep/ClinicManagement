@@ -37,6 +37,8 @@ public class DentistService implements IDentistService{
 
 	@Override
 	public void createDentist(Dentist dentist) {
+		String hashPassword = SecurityService.getMD5Hash(dentist.getPasswordHash());
+		dentist.setPasswordHash(hashPassword);
 		dentistRepository.save(dentist);
 		
 	}
