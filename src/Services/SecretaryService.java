@@ -12,7 +12,7 @@ public class SecretaryService implements ISecretaryService {
 	private SecretaryRepository secretaryRepository;
 	
 	public SecretaryService() {
-		secretaryRepository = new SecretaryRepository(Constants.ROUTINE_PROCEDURE_DB_FILE_NAME);
+		secretaryRepository = new SecretaryRepository(Constants.SECRETARY_DB_FILE_NAME);
 	}
 	
 	public Secretary getSecretaryByEmail(String email) {

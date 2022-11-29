@@ -76,7 +76,7 @@ public class ClientScreen extends Screen {
 	}
 
 	private void getOut() {
-		System.out.println("Obrigado por utilizar nosso sistema " + client.getName() + ". Até a próxima!");
+		System.out.println("Obrigado por utilizar nosso sistema " + client.getName() + ". Ate a proxima!");
 		System.exit(0);
 	}
 
