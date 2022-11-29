@@ -119,7 +119,7 @@ public class LoginScreen extends Screen {
 
 	private void getOut() {
 		System.out.println("Obrigado por utilizar nosso sistema. Ate a proxima!");
-		viewController.getLoginScreen().show();
+		System.exit(0);
 	}
 	
 	private void goToUserScreen(User user) {

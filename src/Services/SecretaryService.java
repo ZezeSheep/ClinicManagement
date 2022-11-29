@@ -10,9 +10,11 @@ import repository.SecretaryRepository;
 
 public class SecretaryService implements ISecretaryService {
 	private SecretaryRepository secretaryRepository;
+	private LoginService loginService;
 	
 	public SecretaryService() {
 		secretaryRepository = new SecretaryRepository(Constants.SECRETARY_DB_FILE_NAME);
+		loginService = new LoginService();
 	}
 	
 	public Secretary getSecretaryByEmail(String email) {
@@ -25,6 +27,7 @@ public class SecretaryService implements ISecretaryService {
 	
 	public void createSecretary(Secretary secretary) {
 		secretary.setPasswordHash(SecurityService.getMD5Hash(secretary.getPasswordHash()));
+		loginService.createUser(secretary);
 		secretaryRepository.save(secretary);
 	}
 }

@@ -50,6 +50,15 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
+	public void createUser(User user) {
+		try {
+			loginRepository.save(user);
+		} catch (Exception e) {
+			System.err.println("Falha ao registrar o usuario " + user.getEmail() + " no banco de dados.");
+			e.printStackTrace(System.err);
+		}
+	}
+	
 	public boolean verifyPasswordRoles(String password) {
 		return password.length() >= MIN_PASSWORD_LENGTH;
 	}

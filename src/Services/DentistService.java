@@ -10,9 +10,11 @@ import repository.DentistRepository;
 
 public class DentistService implements IDentistService{
 	private DentistRepository dentistRepository;
+	private LoginService loginService;
 	
 	public DentistService() {
 		dentistRepository = new DentistRepository(Constants.DENTIST_DB_FILE_NAME);
+		loginService = new LoginService();
 	}
 	
 	public List<Dentist> getAllDentists(){
@@ -39,6 +41,7 @@ public class DentistService implements IDentistService{
 	public void createDentist(Dentist dentist) {
 		String hashPassword = SecurityService.getMD5Hash(dentist.getPasswordHash());
 		dentist.setPasswordHash(hashPassword);
+		loginService.createUser(dentist);
 		dentistRepository.save(dentist);
 		
 	}

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Services.ClientService;
 import Services.ConsultService;
 import Services.DentistService;
+import Services.ProcedureService;
 import Services.interfaces.IClientService;
 import Services.interfaces.IConsultService;
 import Services.interfaces.IDentistService;
@@ -32,13 +33,13 @@ public class ClientScreen extends Screen {
 		this.client = client;
 	}
 
-	public ClientScreen(ViewController viewController, Scanner scanner, IProcedureService procedureService) {
+	public ClientScreen(ViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
 		consultService = new ConsultService();
 		clientService = new ClientService();
 		dentistService = new DentistService();
 		this.scanner = scanner;
-		this.procedureService = procedureService;
+		this.procedureService = new ProcedureService();
 	} 
 	
 	public void show() {
@@ -191,7 +192,6 @@ public class ClientScreen extends Screen {
 		}
 		ScreenShowUtils.pressAnyButton();
 		show();
-		
 	}
 
 	private void showAllDentists() {
