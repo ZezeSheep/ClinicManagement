@@ -7,6 +7,7 @@ import controller.ViewController;
 import controller.interfaces.IViewController;
 import model.Dentist;
 import repository.DentistRepository;
+import utils.ScreenShowUtils;
 
 public class DentistScreen extends CRUDScreen {
 	
@@ -21,7 +22,37 @@ public class DentistScreen extends CRUDScreen {
 	}
 	
 	public void show() {
-		System.out.println("> Exibindo menu do dentista.");
+		ScreenShowUtils.clearScreen();
+		boolean userSelectedAnyOption = false;
+		while(!userSelectedAnyOption) {
+			System.out.println("(1) Ver procedimentos\n(2) Ver minhas consultas\n(3) Sair");
+			String optionSelected = scanner.next();
+			userSelectedAnyOption = true;
+			
+			switch(optionSelected) {
+				case "1":
+					showAllDentists();
+					break;
+				case "2":
+					showAllProcedures();
+					break;
+				case "3":
+					showAllMyConsultation();
+					break;
+				case "4":
+					registerNewConsultation();
+					break;
+				case "5":
+					editMyAccount();
+					break;
+				case "6":
+					getOut();
+					break;
+				default: 
+					userSelectedAnyOption = false;
+					break;
+			}
+		}
 	}
 
 	@Override

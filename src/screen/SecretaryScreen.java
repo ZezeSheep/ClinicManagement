@@ -213,8 +213,8 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void getOut() {
-		System.out.println("Obrigado por utilizar nosso sistema. At� a pr�xima!");
-		System.exit(0);		
+		System.out.println("Obrigado por utilizar nosso sistema. Ate a proxima!");
+		viewController.getLoginScreen().show();		
 	}
 
 	private void editDentist() {
