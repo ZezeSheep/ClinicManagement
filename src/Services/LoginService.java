@@ -2,6 +2,8 @@ package Services;
 
 import java.util.HashMap;
 
+import javax.security.auth.login.LoginException;
+
 import Services.interfaces.ILoginService;
 import model.Client;
 import model.Constants;
@@ -41,6 +43,10 @@ public class LoginService implements ILoginService {
 		// Os demais usuários são criados através do menu do secretário.
 		Client client = new Client(email, hashPassword);
 		try {
+			if(loginRepository.get(email) != null) {
+				System.out.println("Ja existe um usuario cadastrado com o email " + email);
+				throw new LoginException();
+			}
 			loginRepository.save((User) client);
 			repositories.get(UserCategory.Client).save(client);
 		} catch (Exception e) {

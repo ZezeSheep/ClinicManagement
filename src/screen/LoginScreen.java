@@ -86,7 +86,7 @@ public class LoginScreen extends Screen {
 		
 		try {
 			loginService.createUser(userEmail, userPassword);
-			System.out.println("Usuário criado com sucesso!");
+			System.out.println("Usuario criado com sucesso!");
 		} catch (Exception e) {
 			System.out.println("Falha ao cadastrar o novo usuario! Por favor, tente novamente mais tarde.");
 		} finally {

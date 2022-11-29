@@ -26,6 +26,10 @@ public class SecretaryService implements ISecretaryService {
 	}
 	
 	public void createSecretary(Secretary secretary) {
+		if(getSecretaryByEmail(secretary.getEmail()) != null) {
+			System.out.println("Ja existe um secretario cadastrado com o email " + secretary.getEmail());
+			return;
+		}
 		secretary.setPasswordHash(SecurityService.getMD5Hash(secretary.getPasswordHash()));
 		loginService.createUser(secretary);
 		secretaryRepository.save(secretary);
