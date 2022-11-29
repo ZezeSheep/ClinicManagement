@@ -23,7 +23,7 @@ public class ViewController implements IViewController{
 		clientScreen = new ClientScreen(this, scanner, new ProcedureService());
 		dentistScreen = new DentistScreen(this, scanner);
 		loginScreen = new LoginScreen(this, scanner);
-		secretaryScreen = new SecretaryScreen(this, scanner, null, null);
+		secretaryScreen = new SecretaryScreen(this, scanner);
 	}
 
 	public SecretaryScreen getSecretaryScreen() {
