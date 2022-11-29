@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import model.Client;
 import model.Dentist;
 
 public class DentistRepository extends UserRepository<Dentist> {
@@ -84,7 +85,7 @@ public class DentistRepository extends UserRepository<Dentist> {
 
 		if(oldUser != null) {
 			List<Dentist> dentistList = this.getAll();
-			dentistList.remove(oldUser);
+			removeFromList(dentistList, oldUser);
 			dentistList.add(objT);
 
 			try {
@@ -104,6 +105,17 @@ public class DentistRepository extends UserRepository<Dentist> {
 		} else {
 			System.out.println("Dentist: " + email + "don't exist in Database");
 		}
+	}
+	
+	private List<Dentist> removeFromList(List<Dentist> dentistList, Dentist dentist){
+		for (Iterator<Dentist> iterator = dentistList.iterator(); iterator.hasNext();){  
+			Dentist currentDentista = iterator.next();  
+	      
+	        if (currentDentista.getEmail().equals(dentist.getEmail())){  
+	               iterator.remove();
+	        }
+		}
+		return dentistList;
 	}
     
 }
