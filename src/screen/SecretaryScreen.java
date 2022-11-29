@@ -61,8 +61,8 @@ public class SecretaryScreen extends Screen {
 		          + "(6) Editar procedimento\n"
 		          + "(7) Ver pacientes\n"
 		          + "(8) Ver secretarios\n"
-		          + "(9) Cadastrar secret�rio\n"
-		          + "(10) Editar secret�rio\n"
+		          + "(9) Cadastrar secretario\n"
+		          + "(10) Editar secretario\n"
 		          + "(11) Sair\n");
 			String optionSelected = scanner.next();
 			userSelectedAnyOption = true;
@@ -109,6 +109,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void createSecretary() {
+		ScreenShowUtils.clearScreen();
 		System.out.println("Certo, vamos cadastrar um novo secretario!");
 		System.out.println("Digite o nome do secretario: ");
 		scanner.nextLine();
@@ -129,6 +130,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void showAllSecretaries() {
+		ScreenShowUtils.clearScreen();
 		List<Secretary> secreataries = secretaryService.getAllSecretaries();
 		for(Secretary secretary : secreataries) {
 			String secretaryLine = String.format("Name: %s\nRegister number:%s\n", 
@@ -223,6 +225,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void editDentist() {
+		ScreenShowUtils.clearScreen();
 		List<Dentist> listDentist = dentistService.getAllDentists();
 		int index = 1;
 		for(Dentist dentist : listDentist) {
@@ -250,20 +253,28 @@ public class SecretaryScreen extends Screen {
 		choosenDentist.setEmail(email);
 		choosenDentist.setPasswordHash(senhaHash);
 		dentistService.createDentist(choosenDentist);
-		
+		ScreenShowUtils.pressAnyButton();
+		show();
 	}
 
 	private void createDentist() {
+		ScreenShowUtils.clearScreen();
 		System.out.print("Qual o nome do dentista: ");
+		scanner.nextLine();
 		String name = scanner.nextLine();
 		System.out.print("Qual o email do dentista: ");
-		String email = scanner.nextLine();
+		String email = scanner.next();
 		System.out.print("Qual a senha do dentista: ");
-		String senha = scanner.nextLine();
+		String senha = scanner.next();
 		System.out.print("Qual o cpf do dentista: ");
-		String cpf = scanner.nextLine();
+		String cpf = scanner.next();
+		System.out.print("Qual o numero de registro do dentista: ");
+		int registerNumber = scanner.nextInt();
 		Dentist newDentist = new Dentist(name, email, senha, cpf);
+		newDentist.setRegisterNumber(registerNumber);
 		dentistService.createDentist(newDentist);
+		ScreenShowUtils.pressAnyButton();
+		show();
 	}
 
 	private void showAllDentists() {

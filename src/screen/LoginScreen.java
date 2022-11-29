@@ -76,8 +76,8 @@ public class LoginScreen extends Screen {
 		String userEmail, userPassword;
 		
 		userEmail = UserInputUtils.getUserInputWithValidation(
-				"Digite o seu endenreço de email: ", 
-				"O email informado não é válido. Por favor, digite um endenreço de email valido: ", 
+				"Digite o seu endenreco de email: ", 
+				"O email informado nao eh valido. Por favor, digite um endenreco de email valido: ", 
 				Pattern.compile(Constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE),
 				scanner
 		);
