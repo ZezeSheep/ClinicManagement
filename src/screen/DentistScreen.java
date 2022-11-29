@@ -42,6 +42,7 @@ public class DentistScreen extends Screen {
 			
 			switch(optionSelected) {
 				case "1":
+<<<<<<< Updated upstream
 					showAllProcedures();
 					break;
 				case "2":
@@ -49,6 +50,25 @@ public class DentistScreen extends Screen {
 					break;
 				case "3":
 					getOut();
+=======
+				//	showAllDentists();
+					break;
+				case "2":
+				//	showAllProcedures();
+					break;
+				case "3":
+				//	showAllMyConsultation();
+					break;
+				case "4":
+				//	registerNewConsultation();
+					break;
+				case "5":
+					//editMyAccount();
+					break;
+				case "6":
+				//	getOut();
+					break;
+>>>>>>> Stashed changes
 				default: 
 					userSelectedAnyOption = false;
 					break;
