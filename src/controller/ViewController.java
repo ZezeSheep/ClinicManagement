@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Scanner;
 
+import Services.ProcedureService;
 import controller.interfaces.IViewController;
 import screen.ClientScreen;
 import screen.DentistScreen;
@@ -19,7 +20,7 @@ public class ViewController implements IViewController{
 	
 	public ViewController() {
 		scanner = new Scanner(System.in);
-		clientScreen = new ClientScreen(this, scanner);
+		clientScreen = new ClientScreen(this, scanner, new ProcedureService());
 		dentistScreen = new DentistScreen(this, scanner);
 		loginScreen = new LoginScreen(this, scanner);
 		secretaryScreen = new SecretaryScreen(this, scanner, null, null);

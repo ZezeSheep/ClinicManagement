@@ -21,6 +21,7 @@ public class LoginScreen extends Screen {
 	}
 	
 	public void show() {
+		System.out.flush();
 		boolean userSelectedAnyOption = false;
 		while(!userSelectedAnyOption) {
 			System.out.println("(1) Realizar login\n(2) Criar conta\n(3) Alterar senha\n(4) Sair");

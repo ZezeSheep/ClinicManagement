@@ -2,6 +2,7 @@ package screen;
 
 import java.util.List;
 import java.util.Scanner;
+
 import Services.SecurityService;
 import Services.interfaces.IDentistService;
 import Services.interfaces.IProcedureService;
@@ -12,6 +13,7 @@ import model.Procedure;
 import model.RoutineProcedure;
 import model.Secretary;
 import model.SurgicalProcedure;
+import utils.ScreenShowUtils;
 
 public class SecretaryScreen extends Screen {
 	
@@ -129,14 +131,26 @@ public class SecretaryScreen extends Screen {
 	private void showAllProcedures() {
 		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
 		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
-		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
-		for(Procedure procedure : procedureList) {
+		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		System.out.println("Procedimentos esteticos:");
+		for(AestheticProcedure procedure : aestheticProcedureList) {
 			String procedureLine = String.format("Name: %s\nID:%d\n", 
 					procedure.getName(),procedure.getId());
 			System.out.println(procedureLine + "\n");
 		}
-		System.out.println("Pressione qualquer tecla...");
-		scanner.next();
+		System.out.println("Procedimentos de rotina:");
+		for(RoutineProcedure procedure : routineProcedureList) {
+			String procedureLine = String.format("Name: %s\nID:%d\n", 
+					procedure.getName(),procedure.getId());
+			System.out.println(procedureLine + "\n");
+		}
+		System.out.println("Procedimentos cirurgico:");
+		for(SurgicalProcedure procedure : surgicalProcedureList) {
+			String procedureLine = String.format("Name: %s\nID:%d\n", 
+					procedure.getName(),procedure.getId());
+			System.out.println(procedureLine + "\n");
+		}
+		ScreenShowUtils.pressAnyButton();
 		show();
 	}
 
@@ -197,8 +211,7 @@ public class SecretaryScreen extends Screen {
 					dentist.getName(),dentist.getRegisterNumber());
 			System.out.println(dentistLine + "\n");
 		}
-		System.out.println("Pressione qualquer tecla...");
-		scanner.next();
+		ScreenShowUtils.pressAnyButton();
 		show();
 	}
 

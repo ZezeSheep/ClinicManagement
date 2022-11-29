@@ -79,11 +79,11 @@ public class Consult implements Serializable {
 		this.endTime = endTime;
 	}
 	
-	private Procedure getProcedure() {
+	public Procedure getProcedure() {
 		return procedure;
 	}
 
-	private void setProcedure(Procedure procedure) {
+	public void setProcedure(Procedure procedure) {
 		this.procedure = procedure;
 	}
     
