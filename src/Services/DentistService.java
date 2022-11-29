@@ -39,6 +39,10 @@ public class DentistService implements IDentistService{
 
 	@Override
 	public void createDentist(Dentist dentist) {
+		if(getDentistByEmail(dentist.getEmail()) != null) {
+			System.out.println("Ja existe um dentista cadastrado com o email " + dentist.getEmail());
+			return;
+		}
 		String hashPassword = SecurityService.getMD5Hash(dentist.getPasswordHash());
 		dentist.setPasswordHash(hashPassword);
 		loginService.createUser(dentist);
