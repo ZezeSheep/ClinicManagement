@@ -3,14 +3,11 @@ package screen;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
-
 import Services.ClientService;
 import Services.ConsultService;
 import Services.DentistService;
 import Services.ProcedureService;
 import Services.SecretaryService;
-import Services.DentistService;
-import Services.ProcedureService;
 import Services.SecurityService;
 import Services.interfaces.IClientService;
 import Services.interfaces.IConsultService;
@@ -19,6 +16,7 @@ import Services.interfaces.IProcedureService;
 import Services.interfaces.ISecretaryService;
 import controller.ViewController;
 import model.AestheticProcedure;
+import model.Client;
 import model.Dentist;
 import model.RoutineProcedure;
 import model.Secretary;
@@ -33,6 +31,7 @@ public class SecretaryScreen extends Screen {
 	private IConsultService consultService;
 	private IClientService clientSerivce;
 	private ISecretaryService secretaryService;
+	private IClientService clientService;
 
 	public void setSecretary(Secretary secretary) {
 		this.secretary = secretary;
@@ -46,6 +45,7 @@ public class SecretaryScreen extends Screen {
 		clientSerivce = new ClientService();
 		consultService = new ConsultService();
         this.procedureService = new ProcedureService();
+        this.clientService = new ClientService();
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void createSecretary() {
-		System.out.println("Certo, vamos cadastrar um novo secret�rio!");
+		System.out.println("Certo, vamos cadastrar um novo secretario!");
 		System.out.println("Digite o nome do secretario: ");
 		scanner.nextLine();
 		String name = scanner.nextLine();
@@ -140,11 +140,19 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void showAllClients() {
-		// TODO Auto-generated method stub
-		
+		ScreenShowUtils.clearScreen();
+		List<Client> listClient = clientService.getAllClients();
+		for(Client client : listClient) {
+			String clientLine = String.format("Name: %s\nEmail:%s\n", 
+					client.getName(),client.getEmail());
+			System.out.println(clientLine + "\n");
+		}
+		ScreenShowUtils.pressAnyButton();
+		show();
 	}
 
 	private void createProcedure() {
+		ScreenShowUtils.clearScreen();
 		System.out.println("Qual o tipo de procedimento deve ser criado:");
 		System.out.println("(1) Estetico");
 		System.out.println("(2) Rotina");
@@ -183,6 +191,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void showAllProcedures() {
+		ScreenShowUtils.clearScreen();
 		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
 		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
 		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
@@ -209,7 +218,7 @@ public class SecretaryScreen extends Screen {
 	}
 
 	private void getOut() {
-		System.out.println("Obrigado por utilizar nosso sistema. At� a pr�xima!");
+		System.out.println("Obrigado por utilizar nosso sistema. Ate a proxima!");
 		System.exit(0);		
 	}
 
