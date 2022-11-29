@@ -34,4 +34,16 @@ public class DentistService implements IDentistService{
 		dentist.setConsults(consults);
 		dentistRepository.modify(dentist.getEmail(), dentist);
 	}
+
+	@Override
+	public void createDentist(Dentist dentist) {
+		dentistRepository.save(dentist);
+		
+	}
+
+	@Override
+	public void removeDentist(Dentist dentist) {
+	//	dentistRepository.remove(dentist);
+		
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import Services.interfaces.IProcedureService;
 import model.AestheticProcedure;
 import model.Constants;
+import model.Procedure;
 import model.RoutineProcedure;
 import model.SurgicalProcedure;
 import repository.AestheticProcedureRepository;
@@ -26,11 +27,11 @@ public class ProcedureService implements IProcedureService{
 		return aestheticProcedureRepository.getAll();
 	}
 	
-	public List<RoutineProcedure> getAllRoutineProcedureRepositories() {
+	public List<RoutineProcedure> getAllRoutineProcedures() {
 		return routineProcedureRepository.getAll();
 	}
 	
-	public List<SurgicalProcedure> getAllSurgicalProcedureRepositories() {
+	public List<SurgicalProcedure> getAllSurgicalProcedures() {
 		return surgicalProcedureRepository.getAll();
 	}
 	
