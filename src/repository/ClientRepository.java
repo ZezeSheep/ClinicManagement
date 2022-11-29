@@ -81,4 +81,31 @@ public class ClientRepository extends UserRepository<Client> {
 		
 	}
     
+	@Override
+	public void modify(String email, Client objT) {
+		Client oldUser = this.get(email);
+
+		if(oldUser != null) {
+			List<Client> clientList = this.getAll();
+			clientList.remove(oldUser);
+			clientList.add(objT);
+
+			try {
+				FileOutputStream fos = new FileOutputStream(this.getFileName());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+	
+				oos.writeObject(clientList);
+	
+				System.out.println("Client: "+ email+ " modify in Database");
+	
+				oos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Client: " + email + "don't exist in Database");
+		}
+	}
 }

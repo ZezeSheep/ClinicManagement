@@ -77,5 +77,32 @@ public class AestheticProcedureRepository extends ProcedureRepository<AestheticP
 		}
 		
 	}
+
+	@Override
+	public void modify(int id, AestheticProcedure objT) {
+		AestheticProcedure oldProcedure = this.get(id);
+		if(oldProcedure != null) {
+			List<AestheticProcedure> aestheticProcedureList = this.getAll();
+			aestheticProcedureList.remove(oldProcedure);
+			aestheticProcedureList.add(objT);
+
+			try {
+				FileOutputStream fos = new FileOutputStream(this.getFileName());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+	
+				oos.writeObject(aestheticProcedureList);
+	
+				System.out.println("Aesthetic Procedure: "+ objT.getId()+ " modify in Database");
+	
+				oos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Aesthetic Procedure: "+ objT.getId()+ " don't exist in Database");
+		}
+	}
     
 }

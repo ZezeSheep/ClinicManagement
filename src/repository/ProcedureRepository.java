@@ -8,5 +8,7 @@ public abstract class ProcedureRepository<T> extends Repository<T> {
     }
 
     public abstract T get(int id);
+
+    public abstract void modify(int id, T objT);
     
 }

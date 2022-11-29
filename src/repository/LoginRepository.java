@@ -77,6 +77,33 @@ public class LoginRepository extends UserRepository<User>{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	@Override
+	public void modify(String email, User objT) {
+		User oldUser = this.get(email);
+
+		if(oldUser != null) {
+			List<User> userList = this.getAll();
+			userList.remove(oldUser);
+			userList.add(objT);
+
+			try {
+				FileOutputStream fos = new FileOutputStream(this.getFileName());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+	
+				oos.writeObject(userList);
+	
+				System.out.println("User: "+ email+ " modify in Database");
+	
+				oos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("User: " + email + "don't exist in Database");
+		}
 	}
 }

@@ -77,5 +77,33 @@ public class DentistRepository extends UserRepository<Dentist> {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void modify(String email, Dentist objT) {
+		Dentist oldUser = this.get(email);
+
+		if(oldUser != null) {
+			List<Dentist> dentistList = this.getAll();
+			dentistList.remove(oldUser);
+			dentistList.add(objT);
+
+			try {
+				FileOutputStream fos = new FileOutputStream(this.getFileName());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+	
+				oos.writeObject(dentistList);
+	
+				System.out.println("Dentist: "+ email+ " modify in Database");
+	
+				oos.close();
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			System.out.println("Dentist: " + email + "don't exist in Database");
+		}
+	}
     
 }
