@@ -12,7 +12,7 @@ public interface IDentistService {
 	void addConsult(Consult consult, String dentistEmail);
 	
 	void createDentist(Dentist dentist);
-	
-	void removeDentist(Dentist dentist);
+
+	List<Consult> getAllConsultsFromDentistEmail(String email);
 
 }

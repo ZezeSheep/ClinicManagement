@@ -37,11 +37,12 @@ public class LoginService implements ILoginService {
 		}
 	}
 	
-	public void createUser(String email, String password) throws Exception {
+	public void createUser(String userName, String email, String password) throws Exception {
 		String hashPassword = SecurityService.getMD5Hash(password);
 		// Regra de negócio: Todo usuário criado no processo de login é da categoria cliente.
 		// Os demais usuários são criados através do menu do secretário.
 		Client client = new Client(email, hashPassword);
+		client.setName(userName);
 		try {
 			if(loginRepository.get(email) != null) {
 				System.out.println("Ja existe um usuario cadastrado com o email " + email);

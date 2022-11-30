@@ -17,7 +17,6 @@ public class DentistRepository extends UserRepository<Dentist> {
 
     public DentistRepository(String fileName) {
         super(fileName);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -69,8 +68,6 @@ public class DentistRepository extends UserRepository<Dentist> {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(dentistList);
-
-			System.out.println("Dentist: "+ objT.getEmail()+ " save in Database");
 
 			oos.close();
 			fos.close();

@@ -70,8 +70,6 @@ public class LoginRepository extends UserRepository<User>{
 
 			oos.writeObject(userList);
 
-			System.out.println("User: "+ objT.getEmail()+ " save in Database");
-
 			oos.close();
 			fos.close();
 		} catch (IOException e) {

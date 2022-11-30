@@ -10,4 +10,6 @@ public interface IConsultService {
 	
 	public List<Consult> getAllConsultsOfClient(String email);
 
+	public List<Consult> getAllConsultsOfDentist(String email);
+
 }

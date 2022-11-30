@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.interfaces.IViewController;
@@ -12,10 +13,12 @@ public class Client extends User {
 
 	public Client(String email, String passwordHash) {
 		super(email, passwordHash, UserCategory.Client);
+		this.consults = new ArrayList<Consult>();
 	}
 
 	public Client(String name, String email, String passwordHash, String cpf) {
 		super(name, email, passwordHash, cpf);
+		this.consults = new ArrayList<Consult>();
 		setUserCategory(UserCategory.Client);
 	}
 

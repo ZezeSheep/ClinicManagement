@@ -69,8 +69,6 @@ public class ClientRepository extends UserRepository<Client> {
 
 			oos.writeObject(clientList);
 
-			System.out.println("Client: "+ objT.getEmail()+ " save in Database");
-
 			oos.close();
 			fos.close();
 		} catch (IOException e) {

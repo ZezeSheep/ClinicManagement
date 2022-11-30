@@ -28,8 +28,6 @@ public class SecretaryScreen extends Screen {
 	private Secretary secretary;
 	private IDentistService dentistService;
 	private IProcedureService procedureService;
-	private IConsultService consultService;
-	private IClientService clientSerivce;
 	private ISecretaryService secretaryService;
 	private IClientService clientService;
 
@@ -42,8 +40,6 @@ public class SecretaryScreen extends Screen {
 		this.dentistService = new DentistService();
 		this.procedureService = new ProcedureService();
 		secretaryService = new SecretaryService();
-		clientSerivce = new ClientService();
-		consultService = new ConsultService();
         this.procedureService = new ProcedureService();
         this.clientService = new ClientService();
 	}
@@ -55,15 +51,12 @@ public class SecretaryScreen extends Screen {
 			System.out.println(
 					"(1) Ver dentistas\n"
 		          + "(2) Cadastrar dentista\n"
-		          + "(3) Editar dentista\n"
-		          + "(4) Ver procedimentos\n"
-		          + "(5) Cadastrar procedimento\n"
-		          + "(6) Editar procedimento\n"
-		          + "(7) Ver pacientes\n"
-		          + "(8) Ver secretarios\n"
-		          + "(9) Cadastrar secretario\n"
-		          + "(10) Editar secretario\n"
-		          + "(11) Sair\n");
+		          + "(3) Ver procedimentos\n"
+		          + "(4) Cadastrar procedimento\n"
+		          + "(5) Ver pacientes\n"
+		          + "(6) Ver secretarios\n"
+		          + "(7) Cadastrar secretario\n"
+		          + "(8) Sair\n");
 			String optionSelected = scanner.next();
 			userSelectedAnyOption = true;
 			
@@ -75,30 +68,21 @@ public class SecretaryScreen extends Screen {
 					createDentist();
 					break;
 				case "3":
-					//editDentist();
-					break;
-				case "4":
 					showAllProcedures();
 					break;
-				case "5":
+				case "4":
 					createProcedure();
 					break;
-				case "6":
-					//editProcedure();
-					break;
-				case "7":
+				case "5":
 					showAllClients();
 					break;
-				case "8":
+				case "6":
 					showAllSecretaries();
 					break;
-				case "9":
+				case "7":
 					createSecretary();
 					break;
-				case "10":
-					//editSecretary();
-					break;
-				case "11":
+				case "8":
 					getOut();
 					break;
 				default: 
@@ -125,32 +109,42 @@ public class SecretaryScreen extends Screen {
 		secretary.setRegisterNumber(registerNumber);
 		secretaryService.createSecretary(secretary);
 		System.out.print("Secretario criado com sucesso!");
-		ScreenShowUtils.pressAnyButton();
-		show();
+		restart();
 	}
 
 	private void showAllSecretaries() {
 		ScreenShowUtils.clearScreen();
 		List<Secretary> secreataries = secretaryService.getAllSecretaries();
+		
+		if(secreataries.isEmpty()) {
+			System.out.println("Nao ha nenhum secretario cadastrado!");
+			restart();
+		}
+		
 		for(Secretary secretary : secreataries) {
 			String secretaryLine = String.format("Name: %s\nRegister number:%s\n", 
 					secretary.getName(),secretary.getRegisterNumber());
 			System.out.println(secretaryLine + "\n");
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
+		restart();
 	}
 
 	private void showAllClients() {
 		ScreenShowUtils.clearScreen();
 		List<Client> listClient = clientService.getAllClients();
+		
+		if(listClient.isEmpty()) {
+			System.out.println("Nao ha nenhum usuario cadastrado!");
+			restart();
+		}
+		
 		for(Client client : listClient) {
 			String clientLine = String.format("Name: %s\nEmail:%s\n", 
 					client.getName(),client.getEmail());
 			System.out.println(clientLine + "\n");
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
+		
+		restart();
 	}
 
 	private void createProcedure() {
@@ -187,74 +181,63 @@ public class SecretaryScreen extends Screen {
 			procedureService.createSurgicalProcedure(newProcedure);
 			System.out.println("Procedimento cirurgico criado com sucesso");
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
+		restart();
 		
 	}
 
 	private void showAllProcedures() {
-		ScreenShowUtils.clearScreen();
-		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
-		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
-		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		ScreenShowUtils.clearScreen();	
 		System.out.println("Procedimentos esteticos:");
-		for(AestheticProcedure procedure : aestheticProcedureList) {
-			String procedureLine = String.format("Name: %s\n", 
-					procedure.getName());
-			System.out.println(procedureLine);
+		showAestheticProcedures();
+		System.out.println("\nProcedimentos de rotina:");
+		showRoutineProcedures();
+		System.out.println("\nProcedimentos cirurgico:");
+		showSurgicalProcedures();
+		restart();
+	}
+	
+	private void showAestheticProcedures() {
+		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
+		if(aestheticProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos esteticos cadastrados.");
+		} else {
+			for(AestheticProcedure procedure : aestheticProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		System.out.println("Procedimentos de rotina:");
-		for(RoutineProcedure procedure : routineProcedureList) {
-			String procedureLine = String.format("Name: %s\n", 
-					procedure.getName());
-			System.out.println(procedureLine + "\n");
+	}
+	
+	private void showRoutineProcedures() {
+		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
+		if(routineProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos de rotina cadastrados.");
+		} else {
+			for(RoutineProcedure procedure : routineProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		System.out.println("Procedimentos cirurgico:");
-		for(SurgicalProcedure procedure : surgicalProcedureList) {
-			String procedureLine = String.format("Name: %s\n", 
-					procedure.getName());
-			System.out.println(procedureLine + "\n");
+	}
+	
+	private void showSurgicalProcedures() {
+		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		if(surgicalProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos sirurgicos cadastrados.");
+		} else {
+			for(SurgicalProcedure procedure : surgicalProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
 	}
 
 	private void getOut() {
 		System.out.println("Obrigado por utilizar nosso sistema. Ate a proxima!");
 		viewController.getLoginScreen().show();		
-	}
-
-	private void editDentist() {
-		ScreenShowUtils.clearScreen();
-		List<Dentist> listDentist = dentistService.getAllDentists();
-		int index = 1;
-		for(Dentist dentist : listDentist) {
-			String dentistLine = String.format("(%d) Name: %s\nRegister number:%s\n", 
-					index, dentist.getName(),dentist.getRegisterNumber());
-			System.out.println(dentistLine + "\n");
-			index++;
-		}
-		System.out.print("Selecione o dentista: ");
-		int choosenIndex = scanner.nextInt();
-		Dentist choosenDentist = listDentist.get(choosenIndex-1);
-		dentistService.removeDentist(choosenDentist);
-		
-		System.out.print("Qual o novo nome do dentista: ");
-		String name = scanner.nextLine();
-		System.out.print("Qual o novo email do dentista: ");
-		String email = scanner.nextLine();
-		System.out.print("Qual a novo senha do dentista: ");
-		String senha = scanner.nextLine();
-		String senhaHash = SecurityService.getMD5Hash(senha);
-		System.out.print("Qual o novo cpf do dentista: ");
-		String cpf = scanner.nextLine();
-		choosenDentist.setCpf(cpf);
-		choosenDentist.setName(name);
-		choosenDentist.setEmail(email);
-		choosenDentist.setPasswordHash(senhaHash);
-		dentistService.createDentist(choosenDentist);
-		ScreenShowUtils.pressAnyButton();
-		show();
 	}
 
 	private void createDentist() {
@@ -273,17 +256,26 @@ public class SecretaryScreen extends Screen {
 		Dentist newDentist = new Dentist(name, email, senha, cpf);
 		newDentist.setRegisterNumber(registerNumber);
 		dentistService.createDentist(newDentist);
-		ScreenShowUtils.pressAnyButton();
-		show();
+		restart();
 	}
 
 	private void showAllDentists() {
 		List<Dentist> listDentist = dentistService.getAllDentists();
+		
+		if(listDentist.isEmpty()) {
+			System.out.println("Nao ha nenhum dentista cadastrado!");
+			restart();
+		}
+		
 		for(Dentist dentist : listDentist) {
 			String dentistLine = String.format("Name: %s\nRegister number:%s\n", 
 					dentist.getName(),dentist.getRegisterNumber());
 			System.out.println(dentistLine + "\n");
 		}
+		restart();
+	}
+	
+	private void restart() {
 		ScreenShowUtils.pressAnyButton();
 		show();
 	}

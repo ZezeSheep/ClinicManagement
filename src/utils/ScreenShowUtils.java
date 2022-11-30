@@ -5,14 +5,7 @@ import java.io.IOException;
 public class ScreenShowUtils {
 	
 	public static void clearScreen() {
-		System.out.println("\n\n\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n\n\n"
-				+ "\n\n\n\n\n\n\n\n");		
+		System.out.println("\n\n\n\n\n\n\n\n");		
 	}
 	
 	public static void pressAnyButton() {

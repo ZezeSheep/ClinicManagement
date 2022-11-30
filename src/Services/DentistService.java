@@ -53,10 +53,4 @@ public class DentistService implements IDentistService{
 		dentistRepository.save(dentist);
 		
 	}
-
-	@Override
-	public void removeDentist(Dentist dentist) {
-	//	dentistRepository.remove(dentist);
-		
-	}
 }

@@ -18,15 +18,16 @@ public class ConsultService implements IConsultService {
 	}
 	
 	public void createConsult(Consult consult, String clientEmail, String dentistEmail) {
-		consult.setId(0);
-		String guid = java.util.UUID.randomUUID().toString();
-
 		clientService.addConsult(consult, clientEmail);
 		dentistService.addConsult(consult, dentistEmail);
 	}
 	
 	public List<Consult> getAllConsultsOfClient(String email){
 		return clientService.getAllConsultsFromClientEmail(email);
+	}
+	
+	public List<Consult> getAllConsultsOfDentist(String email){
+		return dentistService.getAllConsultsFromDentistEmail(email);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.interfaces.IViewController;
@@ -11,11 +12,13 @@ public class Dentist extends InternUser {
 
 	public Dentist(String email, String passwordHash) {
 		super(email, passwordHash, UserCategory.Dentist);
+		this.consults = new ArrayList<Consult>();
 	}
 	
 	public Dentist(String name, String email, String passwordHash, String cpf) {
 		super(name, email, passwordHash, cpf);
 		setUserCategory(UserCategory.Dentist);
+		this.consults = new ArrayList<Consult>();
 	}
 
 	@Override

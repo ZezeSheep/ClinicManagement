@@ -73,7 +73,11 @@ public class LoginScreen extends Screen {
 	}
 	
 	private void createNewUser() {
-		String userEmail, userPassword;
+		String userEmail, userPassword, userName;
+		
+		System.out.println("Digite seu nome: ");
+		scanner.nextLine();
+		userName = scanner.nextLine();
 		
 		userEmail = UserInputUtils.getUserInputWithValidation(
 				"Digite o seu endenreco de email: ", 
@@ -85,7 +89,7 @@ public class LoginScreen extends Screen {
 		userPassword = getUserPasswordWithVerification();
 		
 		try {
-			loginService.createUser(userEmail, userPassword);
+			loginService.createUser(userName, userEmail, userPassword);
 			System.out.println("Usuario criado com sucesso!");
 		} catch (Exception e) {
 			System.out.println("Falha ao cadastrar o novo usuario! Por favor, tente novamente mais tarde.");

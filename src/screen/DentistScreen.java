@@ -1,10 +1,13 @@
 package screen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Services.ConsultService;
 import Services.LoginService;
 import Services.ProcedureService;
+import Services.interfaces.IConsultService;
 import Services.interfaces.IDentistService;
 import Services.interfaces.IProcedureService;
 import controller.ViewController;
@@ -21,7 +24,7 @@ public class DentistScreen extends Screen {
 	
 	private Dentist dentist;
 	private IProcedureService procedureService;
-	private LoginService loginService;
+	private IConsultService consultService;
 
 	public void setDentist(Dentist dentist) {
 		this.dentist = dentist;
@@ -30,6 +33,7 @@ public class DentistScreen extends Screen {
 	public DentistScreen(IViewController viewController, Scanner scanner) {
 		super(viewController, scanner);
 		this.procedureService = new ProcedureService();
+		consultService = new ConsultService();
 	}
 	
 	public void show() {
@@ -62,7 +66,17 @@ public class DentistScreen extends Screen {
 	}
 
 	private void showAllMyConsultation() {
-		List<Consult> consultList = dentist.getConsults();
+		List<Consult> consultList = consultService.getAllConsultsOfDentist(dentist.getEmail());
+		
+		try {
+			if(consultList.isEmpty()) {
+				System.out.println("Voce nao possui consultas agendadas.");
+				restart();
+			}
+		} catch (Exception e) {
+			dentist.setConsults(new ArrayList<Consult>());
+		}
+		
 		if(consultList != null) {
 			for(Consult consult : consultList) {
 				String consultLine = String.format("Sala: %s\nDescricao:%s\n", 
@@ -70,35 +84,63 @@ public class DentistScreen extends Screen {
 				System.out.println(consultLine + "\n");
 			}			
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
+		
+		restart();
 	}
 
 	private void showAllProcedures() {
-		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
-		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
-		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		ScreenShowUtils.clearScreen();	
 		System.out.println("Procedimentos esteticos:");
-		for(AestheticProcedure procedure : aestheticProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
-			System.out.println(procedureLine + "\n");
+		showAestheticProcedures();
+		System.out.println("\nProcedimentos de rotina:");
+		showRoutineProcedures();
+		System.out.println("\nProcedimentos cirurgico:");
+		showSurgicalProcedures();
+		restart();
+	}
+	
+	private void showAestheticProcedures() {
+		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
+		if(aestheticProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos esteticos cadastrados.");
+		} else {
+			for(AestheticProcedure procedure : aestheticProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		System.out.println("Procedimentos de rotina:");
-		for(RoutineProcedure procedure : routineProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
-			System.out.println(procedureLine + "\n");
+	}
+	
+	private void showRoutineProcedures() {
+		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
+		if(routineProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos de rotina cadastrados.");
+		} else {
+			for(RoutineProcedure procedure : routineProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		System.out.println("Procedimentos cirurgico:");
-		for(SurgicalProcedure procedure : surgicalProcedureList) {
-			String procedureLine = String.format("Name: %s\nID:%d\n", 
-					procedure.getName(),procedure.getId());
-			System.out.println(procedureLine + "\n");
+	}
+	
+	private void showSurgicalProcedures() {
+		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		if(surgicalProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos sirurgicos cadastrados.");
+		} else {
+			for(SurgicalProcedure procedure : surgicalProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
+	}
+
+	private void restart() {
 		ScreenShowUtils.pressAnyButton();
 		show();
 	}
-
 	
 }

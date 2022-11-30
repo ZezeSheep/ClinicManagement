@@ -69,8 +69,6 @@ public class AestheticProcedureRepository extends ProcedureRepository<AestheticP
 
 			oos.writeObject(aestheticProcedureList);
 
-			System.out.println("Aesthetic Procedure: "+ objT.getId()+ " save in Database");
-
 			oos.close();
 			fos.close();
 		} catch (IOException e) {

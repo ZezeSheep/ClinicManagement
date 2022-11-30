@@ -69,8 +69,6 @@ public class RoutineProcedureRepository extends ProcedureRepository<RoutineProce
 
 			oos.writeObject(routineProcedureList);
 
-			System.out.println("Routine Procedure: "+ objT.getId()+ " save in Database");
-
 			oos.close();
 			fos.close();
 		} catch (IOException e) {

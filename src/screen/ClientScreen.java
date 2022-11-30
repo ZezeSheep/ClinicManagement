@@ -1,5 +1,6 @@
 package screen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -47,7 +48,7 @@ public class ClientScreen extends Screen {
 		ScreenShowUtils.clearScreen();
 		boolean userSelectedAnyOption = false;
 		while(!userSelectedAnyOption) {
-			System.out.println("(1) Ver dentistas\n(2) Ver procedimentos\n(3) Ver minhas consultas\n(4) Cadastrar consultas\n(5) Editar minha conta\n(6) Sair");
+			System.out.println("(1) Ver dentistas\n(2) Ver procedimentos\n(3) Ver minhas consultas\n(4) Cadastrar consultas\n(5) Sair");
 			String optionSelected = scanner.next();
 			userSelectedAnyOption = true;
 			
@@ -65,9 +66,6 @@ public class ClientScreen extends Screen {
 					registerNewConsultation();
 					break;
 				case "5":
-					editMyAccount();
-					break;
-				case "6":
 					getOut();
 					break;
 				default: 
@@ -80,11 +78,6 @@ public class ClientScreen extends Screen {
 	private void getOut() {
 		System.out.println("Obrigado por utilizar nosso sistema " + client.getName() + ". Ate a proxima!");
 		viewController.getLoginScreen().show();
-	}
-
-	private void editMyAccount() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void registerNewConsultation() {
@@ -128,13 +121,20 @@ public class ClientScreen extends Screen {
 		consult.setRoom(String.valueOf(roomNumber));
 		consultService.createConsult(consult, client.getEmail(), choosenDentist.getEmail());
 		System.out.println("Consulta criada com sucesso");
-		ScreenShowUtils.pressAnyButton();		
-		show();	
+		restart();	
 	}
 
 	private void showAllMyConsultation() {
 		List<Consult> consultList = consultService.getAllConsultsOfClient(client.getEmail());
-		System.out.println(consultList);
+		try {
+			if(consultList.isEmpty()) {
+				System.out.println("Voce nao possui consultas agendadas.");
+				restart();
+			}
+		} catch (Exception e) {
+			client.setConsults(new ArrayList<Consult>());
+		}
+		
 		if(consultList != null) {
 			for(Consult consult : consultList) {
 				String consultLine = String.format("Sala: %s\nDescricao:%s\n", 
@@ -142,46 +142,73 @@ public class ClientScreen extends Screen {
 				System.out.println(consultLine + "\n");
 			}			
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
+		restart();
 	}
 
 	private void showAllProcedures() {
-		ScreenShowUtils.clearScreen();
-		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
-		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
-		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		ScreenShowUtils.clearScreen();	
 		System.out.println("Procedimentos esteticos:");
-		for(AestheticProcedure procedure : aestheticProcedureList) {
-			String procedureLine = String.format("Name: %s\n", 
-					procedure.getName());
-			System.out.println(procedureLine);
+		showAestheticProcedures();
+		System.out.println("\nProcedimentos de rotina:");
+		showRoutineProcedures();
+		System.out.println("\nProcedimentos cirurgico:");
+		showSurgicalProcedures();
+		restart();
+	}
+	
+	private void showAestheticProcedures() {
+		List<AestheticProcedure> aestheticProcedureList = procedureService.getAllAestheticProcedures();
+		if(aestheticProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos esteticos cadastrados.");
+		} else {
+			for(AestheticProcedure procedure : aestheticProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		System.out.println("Procedimentos de rotina:");
-		for(RoutineProcedure procedure : routineProcedureList) {
-			String procedureLine = String.format("Name: %s\n", 
-					procedure.getName());
-			System.out.println(procedureLine + "\n");
+	}
+	
+	private void showRoutineProcedures() {
+		List<RoutineProcedure> routineProcedureList = procedureService.getAllRoutineProcedures();
+		if(routineProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos de rotina cadastrados.");
+		} else {
+			for(RoutineProcedure procedure : routineProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		System.out.println("Procedimentos cirurgico:");
-		for(SurgicalProcedure procedure : surgicalProcedureList) {
-			String procedureLine = String.format("Name: %s\n", 
-					procedure.getName());
-			System.out.println(procedureLine + "\n");
+	}
+	
+	private void showSurgicalProcedures() {
+		List<SurgicalProcedure> surgicalProcedureList = procedureService.getAllSurgicalProcedures();
+		if(surgicalProcedureList.isEmpty()) {
+			System.out.println("Nao ha procedimentos sirurgicos cadastrados.");
+		} else {
+			for(SurgicalProcedure procedure : surgicalProcedureList) {
+				String procedureLine = String.format("Name: %s\n", 
+						procedure.getName());
+				System.out.println(procedureLine);
+			}
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
 	}
 
 	private void showAllDentists() {
 		List<Dentist> dentistList = dentistService.getAllDentists();
+		
+		if(dentistList.isEmpty()) {
+			System.out.println("Nao ha dentistas sirurgicos cadastrados.");
+			restart();
+		}
+		
 		for(Dentist dentist : dentistList) {
 			String dentistLine = String.format("Name: %s\nRegister number:%s\n", 
 					dentist.getName(),dentist.getRegisterNumber());
 			System.out.println(dentistLine + "\n");
 		}
-		ScreenShowUtils.pressAnyButton();
-		show();
+		restart();
 	}
 	
 	private int getRandomInt() {
@@ -192,6 +219,10 @@ public class ClientScreen extends Screen {
 	private Dentist getDentistByList() {
 		int index = 1;
 		List<Dentist> dentistList = dentistService.getAllDentists();
+		if(dentistList.isEmpty()) {
+			System.out.println("Nao ha dentistas sirurgicos cadastrados.");
+			restart();
+		}
 		for(Dentist dentist : dentistList) {
 			String dentistLine = String.format("(%d) Name: %s\nRegister number:%s\n", 
 					index, dentist.getName(),dentist.getRegisterNumber());
@@ -243,5 +274,10 @@ public class ClientScreen extends Screen {
 		System.out.println("Escolha um procedimento: ");
 		int choosenProcedureIndex = scanner.nextInt();
 		return surgicalProcedureList.get(choosenProcedureIndex-1);
+	}
+	
+	private void restart() {
+		ScreenShowUtils.pressAnyButton();
+		show();
 	}
 }
