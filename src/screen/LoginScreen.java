@@ -21,6 +21,7 @@ public class LoginScreen extends Screen {
 	}
 	
 	public void show() {
+		System.out.flush();
 		boolean userSelectedAnyOption = false;
 		while(!userSelectedAnyOption) {
 			System.out.println("(1) Realizar login\n(2) Criar conta\n(3) Alterar senha\n(4) Sair");
@@ -72,11 +73,15 @@ public class LoginScreen extends Screen {
 	}
 	
 	private void createNewUser() {
-		String userEmail, userPassword;
+		String userEmail, userPassword, userName;
+		
+		System.out.println("Digite seu nome: ");
+		scanner.nextLine();
+		userName = scanner.nextLine();
 		
 		userEmail = UserInputUtils.getUserInputWithValidation(
-				"Digite o seu endenreço de email: ", 
-				"O email informado não é válido. Por favor, digite um endenreço de email valido: ", 
+				"Digite o seu endenreco de email: ", 
+				"O email informado nao eh valido. Por favor, digite um endenreco de email valido: ", 
 				Pattern.compile(Constants.EMAIL_REGEX, Pattern.CASE_INSENSITIVE),
 				scanner
 		);
@@ -84,8 +89,8 @@ public class LoginScreen extends Screen {
 		userPassword = getUserPasswordWithVerification();
 		
 		try {
-			loginService.createUser(userEmail, userPassword);
-			System.out.println("Usuário criado com sucesso!");
+			loginService.createUser(userName, userEmail, userPassword);
+			System.out.println("Usuario criado com sucesso!");
 		} catch (Exception e) {
 			System.out.println("Falha ao cadastrar o novo usuario! Por favor, tente novamente mais tarde.");
 		} finally {

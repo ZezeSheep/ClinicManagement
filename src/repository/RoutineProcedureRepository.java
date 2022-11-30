@@ -17,7 +17,6 @@ public class RoutineProcedureRepository extends ProcedureRepository<RoutineProce
 
     public RoutineProcedureRepository(String fileName) {
         super(fileName);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -69,8 +68,6 @@ public class RoutineProcedureRepository extends ProcedureRepository<RoutineProce
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(routineProcedureList);
-
-			System.out.println("Routine Procedure: "+ objT.getId()+ " save in Database");
 
 			oos.close();
 			fos.close();

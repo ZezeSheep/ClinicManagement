@@ -16,12 +16,10 @@ public class ClientRepository extends UserRepository<Client> {
 
     public ClientRepository(String fileName) {
         super(fileName);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
     public List<Client> getAll() {
-        // TODO Auto-generated method stub
     	List<Client> clientList = new ArrayList<Client>();
 		try {
 			File f = new File(this.getFileName());
@@ -71,8 +69,6 @@ public class ClientRepository extends UserRepository<Client> {
 
 			oos.writeObject(clientList);
 
-			System.out.println("Client: "+ objT.email+ " save in Database");
-
 			oos.close();
 			fos.close();
 		} catch (IOException e) {
@@ -87,7 +83,7 @@ public class ClientRepository extends UserRepository<Client> {
 
 		if(oldUser != null) {
 			List<Client> clientList = this.getAll();
-			clientList.remove(oldUser);
+			removeFromList(clientList, oldUser);
 			clientList.add(objT);
 
 			try {
@@ -108,4 +104,17 @@ public class ClientRepository extends UserRepository<Client> {
 			System.out.println("Client: " + email + "don't exist in Database");
 		}
 	}
+	
+	private List<Client> removeFromList(List<Client> clientList, Client client){
+		for (Iterator<Client> iterator = clientList.iterator(); iterator.hasNext();){  
+			Client currentClient = iterator.next();  
+	      
+	        if (currentClient.getEmail().equals(client.getEmail())){  
+	               iterator.remove();
+	        }
+		}
+		return clientList;
+	}
+	
+	
 }

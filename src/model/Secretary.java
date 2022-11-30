@@ -3,7 +3,7 @@ package model;
 import controller.interfaces.IViewController;
 import model.enums.UserCategory;
 
-public class Secretary extends User {
+public class Secretary extends InternUser {
 
 	public Secretary(String email, String passwordHash) {
 		super(email, passwordHash, UserCategory.Secretary);
@@ -11,7 +11,7 @@ public class Secretary extends User {
 	
 	public Secretary(String name, String email, String passwordHash, String cpf) {
 		super(name, email, passwordHash, cpf);
-		this.userCategory = UserCategory.Secretary;
+		setUserCategory(UserCategory.Secretary);
 	}
 
 	@Override

@@ -6,11 +6,14 @@ import controller.interfaces.IViewController;
 import model.enums.UserCategory;
 
 public class User implements Serializable {
-	public String name;
-	public String email;
-	public String passwordHash;
-	public String cpf;
-	public UserCategory userCategory;
+	
+	protected String name;
+	protected String email;
+	protected String passwordHash;
+	protected String cpf;
+	protected String cellphone;
+	protected Local address;
+	protected UserCategory userCategory;
 	
 	public User(String email, String passwordHash, UserCategory userCategory) {
 		this.email = email;
@@ -66,4 +69,20 @@ public class User implements Serializable {
 	public void setUserCategory(UserCategory userCategory) {
 		this.userCategory = userCategory;
 	};
+	
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+
+	public Local getAddress() {
+		return address;
+	}
+
+	public void setAddress(Local address) {
+		this.address = address;
+	}
 }

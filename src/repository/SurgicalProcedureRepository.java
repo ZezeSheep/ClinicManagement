@@ -68,8 +68,6 @@ public class SurgicalProcedureRepository extends ProcedureRepository<SurgicalPro
 
 			oos.writeObject(surgicalProcedureList);
 
-			System.out.println("Surgical Procedure: "+ objT.getId()+ " save in Database");
-
 			oos.close();
 			fos.close();
 		} catch (IOException e) {
